@@ -43,6 +43,7 @@ function llenar(){
             </div>\
             </div>';
             table.append(child);
+            $rows = $('.tbody');
         }
     }else {
         load(function (response) {
@@ -67,10 +68,11 @@ function llenar(){
             </div>\
             </div>';
                 table.append(child);
+                $rows = $('.tbody');
             }
         });
     }
-    $rows = $('.tbody');
+
 
 }
 //Funciones de rutas
