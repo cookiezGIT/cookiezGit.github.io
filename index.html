@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Login Cayetano</title>
+        <link rel="stylesheet" href="css/login.css">
+  </head>
+
+  <body>
+
+    <div class="login-page">
+      <div class="logo">
+          <img class="logo" src="images/logoHNCH.png">
+      </div>
+  <div class="form">
+    <h3 style="margin-top:-15px">Iniciar Sesión</h3>
+    <form class="register-form">
+      <input type="text" placeholder="name"/>
+      <input type="password" placeholder="password"/>
+      <input type="text" placeholder="email address"/>
+      <button>create</button>
+      <p class="message">Already registered? <a href="#">Sign In</a></p>
+    </form>
+    <div class="login-form">
+      <input id="user" name="user" type="text" placeholder="usuario"/>
+      <input id="pass" name="pass" type="password" placeholder="contraseña"/>
+      <button id="sub"  class="sub" onclick="login()">Entrar</button>
+      <!--<p class="message">Not registered? <a href="#">Create an account</a></p>-->
+        <!--<p class="message-red">contraseña o usuario incorrectos</p>-->
+      </div>
+    </div>
+  </div>
+      <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+          <script src="js/login.js"></script>
+
+    </body>
+  </html>
