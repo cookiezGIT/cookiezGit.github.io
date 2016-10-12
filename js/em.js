@@ -6,6 +6,7 @@ var table = $('.table-fill');
 var $rows = $('.tbody');
 llenar();
 localStorage.removeItem('dni');
+autoInc();
 
 function load(callback){
     var xobj = new XMLHttpRequest();
@@ -34,7 +35,7 @@ function llenar(){
             var child = '<div class="tbody tr">\
             <div class="td">'+res[i].nombrepaciente+'</div>\
         <div class="td">'+res[i].edad+'</div>\
-        <div class="td"><strong>'+res[i].urgtratC2+'</strong></div>\
+        <div class="td"><strong>'+res[i].estabilidadCI+'</strong></div>\
             <div class="td">'+d+'</div>\
             <div class="td" style="font-size:12pt;">'+res[i].descripcion+'</div>\
         <div class="td">\
@@ -72,9 +73,35 @@ function llenar(){
             }
         });
     }
+}
 
+function compare(a,b){
+    if(a.estabilidadCI < b.estabilidadCI)
+        return 1;
+    if(a.estabilidadCI > b.estabilidadCI)
+        return -1;
+    return 0;
+}
+
+//Refresh de las prioridades
+function autoInc(){
+    setInterval(function(){
+        var res =JSON.parse(localStorage.getItem('pacientes'));
+        $('.tbody').remove();
+        for(i=0;i<res.length;i++){
+            var inc = 0;
+            inc = inc + (res[i].diasrestC1*0.5) + (res[i].urgtratC2*0.4) + (res[i].SocLegC3*0.1);
+            res[i].estabilidadCI += inc;
+            res[i].estabilidadCI = Math.round(res[i].estabilidadCI);
+            console.log(res[i].estabilidadCI);
+            res.sort(compare);
+        }
+        localStorage.setItem('pacientes',JSON.stringify(res));
+        llenar();
+    },2000)
 
 }
+
 //Funciones de rutas
 function setPaciente(dni){
     localStorage.setItem('dni',dni);

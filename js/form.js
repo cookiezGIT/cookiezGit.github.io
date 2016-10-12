@@ -13,8 +13,7 @@ var ctrat=$('#trat');
 var ck1=$('#k1');
 var ck2=$('#k2');
 var ck3=$('#k3');
-var ctru=$('#true');
-var cfal=$('#false');
+var clegal=$('#legal');
 
 
 //cargar la tabla
@@ -93,7 +92,7 @@ function save(){
         "diasrestC1": ck3.val(),
         "tipotrat": ctrat.val(),
         "urgtratC2": ck1.val(),
-        "SocLegC3": "FALSE"
+        "SocLegC3": clegal.val()
     }
     console.log(obj);
     res.push(obj);

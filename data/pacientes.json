@@ -9,10 +9,10 @@
     "especialidad": "Medicina tropical",
     "fecha de ingreso": "20/09/2016",
     "estabilidadCI": 3,
-    "diasrestC1": 10,
+    "diasrestC1": 3,
     "tipotrat": "Toma de pastillas controlada",
     "urgtratC2": 4,
-    "SocLegC3": "TRUE"
+    "SocLegC3": 0
   },
   {
     "dni": 52381663,
@@ -24,10 +24,10 @@
     "especialidad": "Cirugia",
     "fecha de ingreso": "25/09/2016",
     "estabilidadCI": 1,
-    "diasrestC1": 9,
+    "diasrestC1": 1,
     "tipotrat": "Operacion",
     "urgtratC2": 2,
-    "SocLegC3": "FALSE"
+    "SocLegC3": 1
   },
   {
     "dni": 90173695,
@@ -39,10 +39,10 @@
     "especialidad": "Cirugia",
     "fecha de ingreso": "11/09/2016",
     "estabilidadCI": 1,
-    "diasrestC1": 21,
+    "diasrestC1": 5,
     "tipotrat": "Operacion",
     "urgtratC2": 2,
-    "SocLegC3": "FALSE"
+    "SocLegC3": 0
   },
   {
     "dni": 58194739,
@@ -54,10 +54,10 @@
     "especialidad": "Medicina",
     "fecha de ingreso": "05/10/2016",
     "estabilidadCI": 1,
-    "diasrestC1": 9,
+    "diasrestC1": 3,
     "tipotrat": "Evaluaciones",
     "urgtratC2": 2,
-    "SocLegC3": "FALSE"
+    "SocLegC3": 1
   },
   {
     "dni": 97334606,
@@ -72,7 +72,7 @@
     "diasrestC1": 4,
     "tipotrat": "Toma de pastillas controlada",
     "urgtratC2": 3,
-    "SocLegC3": "FALSE"
+    "SocLegC3": 0
   },
   {
     "dni": 13611584,
@@ -84,9 +84,9 @@
     "especialidad": "UCC",
     "fecha de ingreso": "05/10/2016",
     "estabilidadCI": 4,
-    "diasrestC1": 6,
+    "diasrestC1": 2,
     "tipotrat": "Toma de pastillas controlada",
     "urgtratC2": 2,
-    "SocLegC3": "TRUE"
+    "SocLegC3": 1
   }
 ]
