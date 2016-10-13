@@ -39,7 +39,6 @@ function llenar(){
             <div class="td">'+d+'</div>\
             <div class="td" style="font-size:12pt;">'+res[i].descripcion+'</div>\
         <div class="td">\
-            <button class="sub2" onclick="editarPaciente('+res[i].dni+')" >Editar</button>\
             <button class="sub2" onclick="asignarPaciente('+res[i].dni+')">Asignar</button>\
             </div>\
             </div>';
@@ -64,7 +63,6 @@ function llenar(){
             <div class="td">'+d+'</div>\
             <div class="td" style="font-size:12pt;">'+res[i].descripcion+'</div>\
         <div class="td">\
-            <button class="sub2" onclick="editarPaciente('+res[i].dni+')" >Editar</button>\
             <button class="sub2" onclick="asignarPaciente('+res[i].dni+')">Asignar</button>\
             </div>\
             </div>';
@@ -98,7 +96,7 @@ function autoInc(){
         }
         localStorage.setItem('pacientes',JSON.stringify(res));
         llenar();
-    },2000)
+    },6000)
 
 }
 
@@ -107,10 +105,6 @@ function setPaciente(dni){
     localStorage.setItem('dni',dni);
 }
 
-function editarPaciente(dni){
-    setPaciente(dni);
-    window.location.href = 'editar.html';
-}
 function asignarPaciente(dni){
     setPaciente(dni);
     window.location.href = 'asignar.html';
