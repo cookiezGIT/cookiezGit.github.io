@@ -19,7 +19,7 @@
 
         <div class="section">
         <h4>Participantes</h4>
-            <p style="margin-top:-15px;">Requerimos saber cuántas personas han participado en su proyecto para poder registrar a cada una de ellas.</p>
+            <p style="margin-top:-15px;">Requerimos saber cuï¿½ntas personas han participado en su proyecto para poder registrar a cada una de ellas.</p>
         <div class="row">
             <div class="input-field col s6">
                 <select id="participantes">
@@ -73,27 +73,27 @@
             </div>
             <div class="input-field col s2">
                 <select name="paises" class="paises">
-                    <option value="" disabled selected>Elija su país</option>
+                    <option value="" disabled selected>Elija su paï¿½s</option>
                     <!-- ListarPais(); -->
                 </select>
-                <label>País de procedencia</label>
+                <label>Paï¿½s de procedencia</label>
             </div>
             <div class="input-field col s4">
                 <i class="material-icons prefix">business</i>
                 <input id="institucion" type="text" class="validate">
-                <label for="institucion">Institución</label>
+                <label for="institucion">Instituciï¿½n</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s9">
                 <i class="material-icons prefix">email</i>
                 <input id="email" type="email" class="validate">
-                <label for="email" data-error="email no válido" data-success="válido">Email</label>
+                <label for="email" data-error="email no vï¿½lido" data-success="vï¿½lido">Email</label>
             </div>
             <div class="input-field col s3">
                 <i class="material-icons prefix">phone</i>
                 <input id="telefono" type="text" class="validate">
-                <label for="telefono">Teléfono</label>
+                <label for="telefono">Telï¿½fono</label>
             </div>
             <div class="col s6">
                 <h6>Esta persona es...</h6>
@@ -125,10 +125,54 @@
                 <label>Modalidad</label>
             </div>
         </div>
-        <!-- Aquí se expande el formulario -->
-        <div class="row" id="expand">
-            <!-- Mostrar1 || Mostrar2 || Mostrar3 -->
 
+        <div class="divider"></div>
+        <div class="row" id="expand">
+            <h5>Primeras modalidades</h5>
+            <div class="row">
+                <div class="input-field col s6" >
+                    <select id="tematica">
+                        <option value="" disabled selected>Elija la lï¿½nea temï¿½tica de su propuesta</option>
+                    </select>
+                    <label>Lï¿½nea temï¿½tica</label>
+                </div>
+
+                <div class="input-field col s6" >
+                    <select id="nivel-educativo">
+                        <option value="" disabled selected>Elija el nivel educativo de su propuesta</option>
+                    </select>
+                    <label>Nivel educativo</label>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="input-field col s6 hide" id="otra-tematica">
+                    <input id="paterno" type="text" class="validate">
+                    <label for="paterno">Indicar otra temï¿½tica</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>Adjuntar</span>
+                        <input type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text" placeholder="Resumen ejecutivo">
+                    </div>
+                </div>
+
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>Adjuntar</span>
+                        <input type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text" placeholder="Resumen para evaluar">
+                    </div>
+                </div>
+            </div>
         </div>
 
 </div>
@@ -182,6 +226,51 @@ var paises = cargarPais();
         });
     return datos;
     }
+
+    function ListarLineaTematica(){
+        jQuery(function($) {
+            $.ajax({
+                type: 'POST',
+                url: 'WS/ListarLineaTematica.php',
+                success: function(data) {
+                    try{
+                        JSON.parse(data);
+                    } catch(err) {
+                        console.log('error en ws');
+                    }
+                    var pre = JSON.parse(data);
+                    var sel = $('#tematica');
+                    for(i=0;i<pre.length;i++){
+                        sel.append('<option value="'+pre[i].ID_LINEA_TEMATICA+'">'+pre[i].NO_LINEA_TEMATICA+'</option>')
+                    }
+                    $('select').material_select();
+                }
+            });
+        });
+    }
+
+    function ListarNivelEducativo(){
+        jQuery(function($) {
+            $.ajax({
+                type: 'POST',
+                url: 'WS/ListarNivelEducativo.php',
+                success: function(data) {
+                    try{
+                        JSON.parse(data);
+                    } catch(err) {
+                        console.log('error en ws');
+                    }
+                    var pre = JSON.parse(data);
+                    var sel = $('#nivel-educativo');
+                    for(i=0;i<pre.length;i++){
+                        sel.append('<option value="'+pre[i].ID_NIVEL_EDUCATIVO+'">'+pre[i].TX_NIVEL_EDUCATIVO+'</option>')
+                    }
+                    $('select').material_select();
+                }
+            });
+        });
+    }
+
     function ListarModalidad(){
         jQuery(function($) {
             $.ajax({
@@ -233,7 +322,7 @@ var paises = cargarPais();
             //Floro
             Mostrar1();
         }else if (val==6){
-            //Fotografía
+            //Fotografï¿½a
             Mostrar2();
         }else{
             //Video
@@ -269,10 +358,24 @@ var paises = cargarPais();
         });
     }
 
+    function onChangeTematica(){
+        if ($('#tematica').val() == 24){
+            $('#otra-tematica').removeClass('hide');
+        }
+        else{
+            $('#otra-tematica').addClass('hide');
+        }
+    }
+
 </script>
 <script>
     ListarPais();
     ListarModalidad();
+    ListarLineaTematica();
+    ListarNivelEducativo();
+
+    $('#tematica').change(onChangeTematica);
+
     $('select').material_select();
 </script>
 
