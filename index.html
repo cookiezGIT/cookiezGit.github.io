@@ -11,7 +11,7 @@
 
 <body>
 <!--Import Google Icon Font-->
-<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 
@@ -55,7 +55,7 @@
             <div class="input-field col s3">
                 <select id="paises">
                     <option value="" disabled selected>Elija su país</option>
-                    <!-- ListarModalidad(); -->
+                    <!-- ListarPais(); -->
                 </select>
                 <label>País de procedencia</label>
             </div>
@@ -79,14 +79,16 @@
         </div>
         <h5>Sobre la Propuesta</h5>
         <div class="row">
-            <div class="input-field col s12">
-
-                <i class="material-icons prefix">assignment</i>
-                <label style="margin-top:-5px;margin-bottom: 5px;">Elija la modalidad que mejor describa su propuesta</label>
-                <div id="modalidades" style="margin-top:25px">
-                <!-- ListarModalidad(); -->
-                </div>
+            <div class="input-field col s6">
+                <select id="modalidades">
+                    <option value="" disabled selected>Elija la modalidad de su propuesta</option>
+                    <!-- ListarModalidad(); -->
+                </select>
+                <label>Modalidad</label>
             </div>
+        </div>
+        <div class="row" id="expand">
+
         </div>
     </form>
 </div>
@@ -107,7 +109,7 @@
                     try{
                          JSON.parse(data);
                     } catch(err) {
-                        alert('error en ws');
+                        console.log('error en ws');
                     }
                     var pre = JSON.parse(data);
                     var sel = $('#paises');
@@ -120,6 +122,28 @@
         });
     }
     function ListarModalidad(){
+        jQuery(function($) {
+            $.ajax({
+                type: 'POST',
+                url: 'WS/ListarModalidad.php',
+                success: function(data) {
+                    try{
+                        JSON.parse(data);
+                    } catch(err) {
+                        console.log('error en ws');
+                    }
+                    var pre = JSON.parse(data);
+                    var sel = $('#modalidades');
+                    for(i=0;i<pre.length;i++){
+                        sel.append('<option value="'+pre[i].ID_MODALIDAD+'" data-DUIS="'+pre[i].ID_PAIS+'">'+pre[i].NO_MODALIDAD+'</option>')
+                    }
+                    $('select').material_select();
+                }
+            });
+        });
+    }
+
+    function ListarModalidadDeprecated(){
         jQuery(function($) {
             $.ajax({
                 type: 'POST',
@@ -146,6 +170,7 @@
 <script>
     ListarPais();
     ListarModalidad();
+    $('select').material_select();
 </script>
 
 </body>
