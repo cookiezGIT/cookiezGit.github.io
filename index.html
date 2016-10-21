@@ -82,13 +82,17 @@
             <div class="input-field col s6">
                 <select id="modalidades">
                     <option value="" disabled selected>Elija la modalidad de su propuesta</option>
+                    <option value="1"> Prueba 1</option>
+                    <option value="5"> Prueba 5</option>
+                    <option value="6"> Prueba 6</option>
                     <!-- ListarModalidad(); -->
                 </select>
                 <label>Modalidad</label>
             </div>
         </div>
+        <!-- Aquí se expande el formulario -->
         <div class="row" id="expand">
-
+            <!-- Mostrar1 || Mostrar2 || Mostrar3 -->
         </div>
     </form>
 </div>
@@ -143,6 +147,27 @@
         });
     }
 
+ //Listener para ampliar el formulario
+    $('#modalidades').change(function(){
+        var val = $('#modalidades').val();
+        console.log(val);
+        if(val<=5){
+            //Floro
+            Mostrar1();
+        }else if (val==6){
+            //Fotografía
+            Mostrar2();
+        }else{
+            //Video
+            Mostrar3();
+        }
+    });
+
+
+
+
+
+    //Lo dejo para reusar luego
     function ListarModalidadDeprecated(){
         jQuery(function($) {
             $.ajax({
