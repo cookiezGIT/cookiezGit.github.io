@@ -16,9 +16,29 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 
 <div class="row" style="width:90%;margin:auto;">
-    <form class="col s12 ">
-        <h5>Datos Personales</h5>
+
+        <div class="section">
+        <h4>Participantes</h4>
+            <p style="margin-top:-15px;">Requerimos saber cuántas personas han participado en su proyecto para poder registrar a cada una de ellas.</p>
         <div class="row">
+            <div class="input-field col s6">
+                <select id="participantes">
+                    <option value="1">1 participante (usted)</option>
+                    <option value="2">2 participantes (usted y un socio)</option>
+                    <option value="3">3 participantes (usted y dos socios)</option>
+                    <option value="4">4 participantes (usted y tres socios)</option>
+                </select>
+            </div>
+            <div class="col s6">
+                aqui van las notificaciones
+            </div>
+        </div>
+        </div>
+        <div class="divider"></div>
+
+        <div class="row" id="expandParticipantes" >
+            <form class="col s6" style="background-color:whitesmoke" >
+                <h5>Participante </h5>
             <div class="input-field col s4">
                 <i class="material-icons prefix">account_circle</i>
                 <input id="nombre" type="text" class="validate">
@@ -32,13 +52,13 @@
                 <input id="materno" type="text" class="validate">
                 <label for="materno">Apellido materno</label>
             </div>
-        </div>
+
         <div class="row">
-            <div class="input-field col s3">
+            <div class="input-field col s4">
 
                 <i class="material-icons prefix">picture_in_picture</i>
                 <label style="margin-top:-5px;margin-bottom: 5px;">Documento</label>
-                <p style="margin-top: 25px;">
+                <p style="margin-top: 25px;" name>
                     <input class="with-gap" name="group1" type="radio" id="doc1" />
                     <label for="doc1">DNI</label>
                     <input class="with-gap" name="group1" type="radio" id="doc2" />
@@ -47,19 +67,18 @@
                     <label for="doc3">Pasaporte</label>
                 </p>
             </div>
-            <div class="input-field col s3">
-                <i class="material-icons prefix">perm_identity</i>
+            <div class="input-field col s2">
                 <input id="docnum" type="text" class="validate">
-                <label for="docnum">Número de documento</label>
+                <label for="docnum"># de documento</label>
             </div>
-            <div class="input-field col s3">
-                <select id="paises">
+            <div class="input-field col s2">
+                <select name="paises" class="paises">
                     <option value="" disabled selected>Elija su país</option>
                     <!-- ListarPais(); -->
                 </select>
                 <label>País de procedencia</label>
             </div>
-            <div class="input-field col s3">
+            <div class="input-field col s4">
                 <i class="material-icons prefix">business</i>
                 <input id="institucion" type="text" class="validate">
                 <label for="institucion">Institución</label>
@@ -76,15 +95,31 @@
                 <input id="telefono" type="text" class="validate">
                 <label for="telefono">Teléfono</label>
             </div>
+            <div class="col s6">
+                <h6>Esta persona es...</h6>
+                <p>
+                    <input class="with-gap" name="group3" type="radio" id="tipo1" checked />
+                    <label for="tipo1">Expositor</label>
+                    <input class="with-gap" name="group3" type="radio" id="tipo2" checked />
+                    <label for="tipo2">Coordinador</label>
+                </p>
+
+            </div>
+            <div class="col s4 offset-s2">
+                <button class="waves-effect waves-light btn-large" type="submit" name="guardar">Guardar Participante
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
         </div>
+            </form>
+
+    </div>
+
         <h5>Sobre la Propuesta</h5>
         <div class="row">
             <div class="input-field col s6">
                 <select id="modalidades">
                     <option value="" disabled selected>Elija la modalidad de su propuesta</option>
-                    <option value="1"> Prueba 1</option>
-                    <option value="5"> Prueba 5</option>
-                    <option value="6"> Prueba 6</option>
                     <!-- ListarModalidad(); -->
                 </select>
                 <label>Modalidad</label>
@@ -93,8 +128,9 @@
         <!-- Aquí se expande el formulario -->
         <div class="row" id="expand">
             <!-- Mostrar1 || Mostrar2 || Mostrar3 -->
+
         </div>
-    </form>
+
 </div>
 
 
@@ -104,7 +140,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
 <script>
-    function ListarPais(){
+var paises = cargarPais();
+
+    //escucha el select de participantes
+    $('#participantes').change(function(){
+        var val = $('#participantes').val();
+        console.log(val);
+        for (i=0;i<val;i++){
+            $('#expandParticipantes').html('');
+            $
+        }
+    });
+
+    function cargarFormParticipantes(){
+
+    }
+
+    function cargarPais(){
+        var datos;
         jQuery(function($) {
             $.ajax({
                 type: 'POST',
@@ -116,20 +169,45 @@
                         console.log('error en ws');
                     }
                     var pre = JSON.parse(data);
-                    var sel = $('#paises');
+                    datos = pre;
+                    var sel = $('.paises');
+                    /**
                     for(i=0;i<pre.length;i++){
                         sel.append('<option value="'+pre[i].CO_PAIS+'" data-DUIS="'+pre[i].ID_PAIS+'">'+pre[i].NO_PAIS+'</option>')
                     }
+                     **/
                     $('select').material_select();
                 }
             });
         });
+    return datos;
     }
     function ListarModalidad(){
         jQuery(function($) {
             $.ajax({
                 type: 'POST',
                 url: 'WS/ListarModalidad.php',
+                success: function(data) {
+                    try{
+                        JSON.parse(data);
+                    } catch(err) {
+                        console.log('error en ws');
+                    }
+                    var pre = JSON.parse(data);
+                    var sel = $('#modalidades');
+                    for(i=0;i<pre.length;i++){
+                        sel.append('<option value="'+pre[i].ID_MODALIDAD+'" data-DUIS="'+pre[i].ID_PAIS+'">'+pre[i].NO_MODALIDAD+'</option>')
+                    }
+                    $('select').material_select();
+                }
+            });
+        });
+    }
+    function ListarLineaTematica(){
+        jQuery(function($) {
+            $.ajax({
+                type: 'POST',
+                url: 'WS/ListarLineaTematica.php',
                 success: function(data) {
                     try{
                         JSON.parse(data);
