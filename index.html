@@ -92,11 +92,16 @@
         <div class="row" id="expand">
             <h5>Sobre la propuesta</h5>
 
-            <div class="input-field col s6">
+            <div class="input-field col s6" >
                 <select id="tematica">
                     <option value="" disabled selected>Elija la línea temática de de su propuesta</option>
                 </select>
                 <label>Línea temática</label>
+            </div>
+
+            <div class="input-field col s6 hide" id="otra-tematica">
+                <input id="paterno" type="text" class="validate">
+                <label for="paterno">Otro</label>
             </div>
 
         </div>
@@ -144,8 +149,8 @@
                         console.log('error en ws');
                     }
                     var pre = JSON.parse(data);
-                    var sel = $('#tematica');
                     console.log(pre);
+                    var sel = $('#tematica');
                     for(i=0;i<pre.length;i++){
                         sel.append('<option value="'+pre[i].ID_LINEA_TEMATICA+'">'+pre[i].NO_LINEA_TEMATICA+'</option>')
                     }
@@ -200,11 +205,23 @@
         });
     }
 
+    function onChangeTematica(){
+        if ($('#tematica').val() == 24){
+            $('#otra-tematica').removeClass('hide');
+        }
+        else{
+            $('#otra-tematica').addClass('hide');
+        }
+    }
+
 </script>
 <script>
     ListarPais();
     ListarModalidad();
     ListarLineaTematica();
+
+    $('#tematica').change(onChangeTematica);
+
     $('select').material_select();
 </script>
 
