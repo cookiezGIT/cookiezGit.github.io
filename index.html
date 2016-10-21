@@ -87,7 +87,17 @@
                 <label>Modalidad</label>
             </div>
         </div>
+
+        <div class="divider"></div>
         <div class="row" id="expand">
+            <h5>Sobre la propuesta</h5>
+
+            <div class="input-field col s6">
+                <select id="tematica">
+                    <option value="" disabled selected>Elija la línea temática de de su propuesta</option>
+                </select>
+                <label>Línea temática</label>
+            </div>
 
         </div>
     </form>
@@ -121,6 +131,30 @@
             });
         });
     }
+
+    function ListarLineaTematica(){
+        jQuery(function($) {
+            $.ajax({
+                type: 'POST',
+                url: 'WS/ListarLineaTematica.php',
+                success: function(data) {
+                    try{
+                        JSON.parse(data);
+                    } catch(err) {
+                        console.log('error en ws');
+                    }
+                    var pre = JSON.parse(data);
+                    var sel = $('#tematica');
+                    console.log(pre);
+                    for(i=0;i<pre.length;i++){
+                        sel.append('<option value="'+pre[i].ID_LINEA_TEMATICA+'">'+pre[i].NO_LINEA_TEMATICA+'</option>')
+                    }
+                    $('select').material_select();
+                }
+            });
+        });
+    }
+
     function ListarModalidad(){
         jQuery(function($) {
             $.ajax({
@@ -170,6 +204,7 @@
 <script>
     ListarPais();
     ListarModalidad();
+    ListarLineaTematica();
     $('select').material_select();
 </script>
 
