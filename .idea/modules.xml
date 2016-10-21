@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/cookiezGit.github.io.iml" filepath="$PROJECT_DIR$/.idea/cookiezGit.github.io.iml" />
+      <module fileurl="file://$PROJECT_DIR$/relme.iml" filepath="$PROJECT_DIR$/relme.iml" />
     </modules>
   </component>
 </project>
