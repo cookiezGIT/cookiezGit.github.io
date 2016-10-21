@@ -90,20 +90,51 @@
 
         <div class="divider"></div>
         <div class="row" id="expand">
-            <h5>Sobre la propuesta</h5>
+            <h5>Primeras modalidades</h5>
+            <div class="row">
+                <div class="input-field col s6" >
+                    <select id="tematica">
+                        <option value="" disabled selected>Elija la línea temática de su propuesta</option>
+                    </select>
+                    <label>Línea temática</label>
+                </div>
 
-            <div class="input-field col s6" >
-                <select id="tematica">
-                    <option value="" disabled selected>Elija la línea temática de de su propuesta</option>
-                </select>
-                <label>Línea temática</label>
+                <div class="input-field col s6" >
+                    <select id="nivel-educativo">
+                        <option value="" disabled selected>Elija el nivel educativo de su propuesta</option>
+                    </select>
+                    <label>Nivel educativo</label>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="input-field col s6 hide" id="otra-tematica">
+                    <input id="paterno" type="text" class="validate">
+                    <label for="paterno">Indicar otra temática</label>
+                </div>
             </div>
 
-            <div class="input-field col s6 hide" id="otra-tematica">
-                <input id="paterno" type="text" class="validate">
-                <label for="paterno">Otro</label>
-            </div>
+            <div class="row">
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>Adjuntar</span>
+                        <input type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text" placeholder="Resumen ejecutivo">
+                    </div>
+                </div>
 
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>Adjuntar</span>
+                        <input type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text" placeholder="Resumen para evaluar">
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 </div>
@@ -149,10 +180,31 @@
                         console.log('error en ws');
                     }
                     var pre = JSON.parse(data);
-                    console.log(pre);
                     var sel = $('#tematica');
                     for(i=0;i<pre.length;i++){
                         sel.append('<option value="'+pre[i].ID_LINEA_TEMATICA+'">'+pre[i].NO_LINEA_TEMATICA+'</option>')
+                    }
+                    $('select').material_select();
+                }
+            });
+        });
+    }
+
+    function ListarNivelEducativo(){
+        jQuery(function($) {
+            $.ajax({
+                type: 'POST',
+                url: 'WS/ListarNivelEducativo.php',
+                success: function(data) {
+                    try{
+                        JSON.parse(data);
+                    } catch(err) {
+                        console.log('error en ws');
+                    }
+                    var pre = JSON.parse(data);
+                    var sel = $('#nivel-educativo');
+                    for(i=0;i<pre.length;i++){
+                        sel.append('<option value="'+pre[i].ID_NIVEL_EDUCATIVO+'">'+pre[i].TX_NIVEL_EDUCATIVO+'</option>')
                     }
                     $('select').material_select();
                 }
@@ -219,6 +271,7 @@
     ListarPais();
     ListarModalidad();
     ListarLineaTematica();
+    ListarNivelEducativo();
 
     $('#tematica').change(onChangeTematica);
 
