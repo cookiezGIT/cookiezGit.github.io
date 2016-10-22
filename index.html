@@ -186,6 +186,15 @@
     var cantParticipantes = 1;
     var participanteForm = $('#form-participantes').clone();
 
+    function addIdSuffixToInput(suffix, form){
+        var inputs = form.find('input');
+        $.each(inputs, function(i, val){
+            var input = $(val);
+            var actualId = input.attr('id');
+            input.attr('id', actualId.concat('-', suffix));
+        });
+    }
+
     //escucha el select de participantes
     function onChangeParticipantes(){
         var val = $('#participantes').val();
@@ -193,13 +202,15 @@
 
         if (val > cantParticipantes) {
             for (var i = cantParticipantes; i < val; i++) {
+                var aux = participanteForm.clone();
+                participanteForm.attr('id', participanteForm.attr('id').concat('-', i-1));
+                addIdSuffixToInput(i-1, participanteForm);
                 expandParticipantes.append(participanteForm);
-                participanteForm = participanteForm.clone();
+                participanteForm = aux;
             }
         }
         else if (val < cantParticipantes) {
             var forms = expandParticipantes.find('form');
-            console.log(cantParticipantes-val);
             for (var i = cantParticipantes-val; i > 0; i--) {
                 forms.get(forms.length-i).remove();
             }
