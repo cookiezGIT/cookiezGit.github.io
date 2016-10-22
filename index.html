@@ -5,7 +5,7 @@
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
 
 </head>
 
@@ -19,7 +19,7 @@
 
         <div class="section">
         <h4>Participantes</h4>
-            <p style="margin-top:-15px;">Requerimos saber cu�ntas personas han participado en su proyecto para poder registrar a cada una de ellas.</p>
+            <p style="margin-top:-15px;">Requerimos saber cuántas personas han participado en su proyecto para poder registrar a cada una de ellas.</p>
         <div class="row">
             <div class="input-field col s6">
                 <select id="participantes">
@@ -36,9 +36,9 @@
         </div>
         <div class="divider"></div>
 
-        <div class="row" id="expandParticipantes" >
-            <form class="col s6" style="background-color:whitesmoke" >
-                <h5>Participante </h5>
+    <div class="row" id="expandParticipantes" >
+        <form class="col s6" style="background-color:whitesmoke" id="form-participantes" >
+            <h5>Participante </h5>
             <div class="input-field col s4">
                 <i class="material-icons prefix">account_circle</i>
                 <input id="nombre" type="text" class="validate">
@@ -53,66 +53,65 @@
                 <label for="materno">Apellido materno</label>
             </div>
 
-        <div class="row">
-            <div class="input-field col s4">
+            <div class="row">
+                <div class="input-field col s4">
 
-                <i class="material-icons prefix">picture_in_picture</i>
-                <label style="margin-top:-5px;margin-bottom: 5px;">Documento</label>
-                <p style="margin-top: 25px;" name>
-                    <input class="with-gap" name="group1" type="radio" id="doc1" />
-                    <label for="doc1">DNI</label>
-                    <input class="with-gap" name="group1" type="radio" id="doc2" />
-                    <label for="doc2">C.E.</label>
-                    <input class="with-gap" name="group1" type="radio" id="doc3"  />
-                    <label for="doc3">Pasaporte</label>
-                </p>
+                    <i class="material-icons prefix">picture_in_picture</i>
+                    <label style="margin-top:-5px;margin-bottom: 5px;">Documento</label>
+                    <p style="margin-top: 25px;" name>
+                        <input class="with-gap" name="group1" type="radio" id="doc1" />
+                        <label for="doc1">DNI</label>
+                        <input class="with-gap" name="group1" type="radio" id="doc2" />
+                        <label for="doc2">C.E.</label>
+                        <input class="with-gap" name="group1" type="radio" id="doc3"  />
+                        <label for="doc3">Pasaporte</label>
+                    </p>
+                </div>
+                <div class="input-field col s2">
+                    <input id="docnum" type="text" class="validate">
+                    <label for="docnum"># de documento</label>
+                </div>
+                <div class="input-field col s2">
+                    <select name="paises" class="paises">
+                        <option value="" disabled selected>Elija su país</option>
+                        <!-- ListarPais(); -->
+                    </select>
+                    <label>País de procedencia</label>
+                </div>
+                <div class="input-field col s4">
+                    <i class="material-icons prefix">business</i>
+                    <input id="institucion" type="text" class="validate">
+                    <label for="institucion">Institución</label>
+                </div>
             </div>
-            <div class="input-field col s2">
-                <input id="docnum" type="text" class="validate">
-                <label for="docnum"># de documento</label>
-            </div>
-            <div class="input-field col s2">
-                <select name="paises" class="paises">
-                    <option value="" disabled selected>Elija su pa�s</option>
-                    <!-- ListarPais(); -->
-                </select>
-                <label>Pa�s de procedencia</label>
-            </div>
-            <div class="input-field col s4">
-                <i class="material-icons prefix">business</i>
-                <input id="institucion" type="text" class="validate">
-                <label for="institucion">Instituci�n</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s9">
-                <i class="material-icons prefix">email</i>
-                <input id="email" type="email" class="validate">
-                <label for="email" data-error="email no v�lido" data-success="v�lido">Email</label>
-            </div>
-            <div class="input-field col s3">
-                <i class="material-icons prefix">phone</i>
-                <input id="telefono" type="text" class="validate">
-                <label for="telefono">Tel�fono</label>
-            </div>
-            <div class="col s6">
-                <h6>Esta persona es...</h6>
-                <p>
-                    <input class="with-gap" name="group3" type="radio" id="tipo1" checked />
-                    <label for="tipo1">Expositor</label>
-                    <input class="with-gap" name="group3" type="radio" id="tipo2" checked />
-                    <label for="tipo2">Coordinador</label>
-                </p>
+            <div class="row">
+                <div class="input-field col s9">
+                    <i class="material-icons prefix">email</i>
+                    <input id="email" type="email" class="validate">
+                    <label for="email" data-error="email no válido" data-success="válido">Email</label>
+                </div>
+                <div class="input-field col s3">
+                    <i class="material-icons prefix">phone</i>
+                    <input id="telefono" type="text" class="validate">
+                    <label for="telefono">Teléfono</label>
+                </div>
+                <div class="col s6">
+                    <h6>Esta persona es...</h6>
+                    <p>
+                        <input class="with-gap" name="group3" type="radio" id="tipo1" />
+                        <label for="tipo1">Expositor</label>
+                        <input class="with-gap" name="group3" type="radio" id="tipo2" checked />
+                        <label for="tipo2">Coordinador</label>
+                    </p>
 
+                </div>
+                <div class="col s4 offset-s2">
+                    <button class="waves-effect waves-light btn-large" type="submit" name="guardar">Guardar Participante
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
             </div>
-            <div class="col s4 offset-s2">
-                <button class="waves-effect waves-light btn-large" type="submit" name="guardar">Guardar Participante
-                    <i class="material-icons right">send</i>
-                </button>
-            </div>
-        </div>
-            </form>
-
+        </form>
     </div>
 
         <h5>Sobre la Propuesta</h5>
@@ -120,7 +119,6 @@
             <div class="input-field col s6">
                 <select id="modalidades">
                     <option value="" disabled selected>Elija la modalidad de su propuesta</option>
-                    <!-- ListarModalidad(); -->
                 </select>
                 <label>Modalidad</label>
             </div>
@@ -132,9 +130,9 @@
             <div class="row">
                 <div class="input-field col s6" >
                     <select id="tematica">
-                        <option value="" disabled selected>Elija la l�nea tem�tica de su propuesta</option>
+                        <option value="" disabled selected>Elija la línea temática de su propuesta</option>
                     </select>
-                    <label>L�nea tem�tica</label>
+                    <label>Línea temática</label>
                 </div>
 
                 <div class="input-field col s6" >
@@ -148,7 +146,7 @@
             <div class="row">
                 <div class="input-field col s6 hide" id="otra-tematica">
                     <input id="paterno" type="text" class="validate">
-                    <label for="paterno">Indicar otra tem�tica</label>
+                    <label for="paterno">Indicar otra temática</label>
                 </div>
             </div>
 
@@ -184,17 +182,31 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
 <script>
-var paises = cargarPais();
+    var paises = cargarPais();
+    var cantParticipantes = 1;
+    var participanteForm = $('#form-participantes').clone();
 
     //escucha el select de participantes
-    $('#participantes').change(function(){
+    function onChangeParticipantes(){
         var val = $('#participantes').val();
-        console.log(val);
-        for (i=0;i<val;i++){
-            $('#expandParticipantes').html('');
-            $
+        var expandParticipantes = $('#expandParticipantes');
+
+        if (val > cantParticipantes) {
+            for (var i = cantParticipantes; i < val; i++) {
+                expandParticipantes.append(participanteForm);
+                participanteForm = participanteForm.clone();
+            }
         }
-    });
+        else if (val < cantParticipantes) {
+            var forms = expandParticipantes.find('form');
+            console.log(cantParticipantes-val);
+            for (var i = cantParticipantes-val; i > 0; i--) {
+                forms.get(forms.length-i).remove();
+            }
+        }
+        participanteForm = participanteForm.clone();
+        cantParticipantes = val;
+    }
 
     function cargarFormParticipantes(){
 
@@ -241,7 +253,7 @@ var paises = cargarPais();
                     var pre = JSON.parse(data);
                     var sel = $('#tematica');
                     for(i=0;i<pre.length;i++){
-                        sel.append('<option value="'+pre[i].ID_LINEA_TEMATICA+'">'+pre[i].NO_LINEA_TEMATICA+'</option>')
+                        sel.append('<option value="'+pre[i].ID_LINEA_TEMATICA+'">'+pre[i].NO_LINEA_TEMATICA+'</option>');
                     }
                     $('select').material_select();
                 }
@@ -292,29 +304,8 @@ var paises = cargarPais();
             });
         });
     }
-    function ListarLineaTematica(){
-        jQuery(function($) {
-            $.ajax({
-                type: 'POST',
-                url: 'WS/ListarLineaTematica.php',
-                success: function(data) {
-                    try{
-                        JSON.parse(data);
-                    } catch(err) {
-                        console.log('error en ws');
-                    }
-                    var pre = JSON.parse(data);
-                    var sel = $('#modalidades');
-                    for(i=0;i<pre.length;i++){
-                        sel.append('<option value="'+pre[i].ID_MODALIDAD+'" data-DUIS="'+pre[i].ID_PAIS+'">'+pre[i].NO_MODALIDAD+'</option>')
-                    }
-                    $('select').material_select();
-                }
-            });
-        });
-    }
 
- //Listener para ampliar el formulario
+    //Listener para ampliar el formulario
     $('#modalidades').change(function(){
         var val = $('#modalidades').val();
         console.log(val);
@@ -322,7 +313,7 @@ var paises = cargarPais();
             //Floro
             Mostrar1();
         }else if (val==6){
-            //Fotograf�a
+            //Fotografía
             Mostrar2();
         }else{
             //Video
@@ -369,12 +360,13 @@ var paises = cargarPais();
 
 </script>
 <script>
-    ListarPais();
+    //ListarPais();
     ListarModalidad();
     ListarLineaTematica();
     ListarNivelEducativo();
 
     $('#tematica').change(onChangeTematica);
+    $('#participantes').change(onChangeParticipantes);
 
     $('select').material_select();
 </script>
