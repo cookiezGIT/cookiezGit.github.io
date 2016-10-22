@@ -16,25 +16,36 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 
 <div class="row" style="width:90%;margin:auto;">
-
-        <div class="section">
-        <h4>Participantes</h4>
-            <p style="margin-top:-15px;">Requerimos saber cuántas personas han participado en su proyecto para poder registrar a cada una de ellas.</p>
-        <div class="row">
-            <div class="input-field col s6">
-                <select id="participantes">
-                    <option value="1">1 participante (usted)</option>
-                    <option value="2">2 participantes (usted y un socio)</option>
-                    <option value="3">3 participantes (usted y dos socios)</option>
-                    <option value="4">4 participantes (usted y tres socios)</option>
-                </select>
-            </div>
-            <div class="col s6">
-                aqui van las notificaciones
-            </div>
+    <h3>Registro de Propuesta</h3>
+    <div class="divider"></div>
+    <h5>Sobre la Propuesta</h5>
+    <div class="row">
+        <div class="input-field col s6">
+            <select id="modalidades">
+                <option value="" disabled selected>Elija la modalidad de su propuesta</option>
+            </select>
+            <label>Modalidad</label>
         </div>
+    </div>
+    <div class="divider"></div>
+    <div class="section">
+    <h5>Participantes</h5>
+        <p style="margin-top:-15px;">Requerimos saber cuántas personas han participado en su proyecto para poder registrar a cada una de ellas.</p>
+    <div class="row">
+        <div class="input-field col s6">
+            <select id="participantes">
+                <option value="1">1 participante (usted)</option>
+                <option value="2">2 participantes (usted y un socio)</option>
+                <option value="3">3 participantes (usted y dos socios)</option>
+                <option value="4">4 participantes (usted y tres socios)</option>
+            </select>
         </div>
-        <div class="divider"></div>
+        <div class="col s6">
+            aqui van las notificaciones
+        </div>
+    </div>
+    </div>
+    <div class="divider"></div>
 
     <div class="row" id="expandParticipantes" >
         <form class="col s6" style="background-color:whitesmoke" id="form-participantes" >
@@ -114,64 +125,54 @@
         </form>
     </div>
 
-        <h5>Sobre la Propuesta</h5>
+    <div class="divider"></div>
+    <div class="row" id="expand">
+        <h5>Primeras modalidades</h5>
         <div class="row">
-            <div class="input-field col s6">
-                <select id="modalidades">
-                    <option value="" disabled selected>Elija la modalidad de su propuesta</option>
+            <div class="input-field col s6" >
+                <select id="tematica">
+                    <option value="" disabled selected>Elija la línea temática de su propuesta</option>
                 </select>
-                <label>Modalidad</label>
+                <label>Línea temática</label>
+            </div>
+
+            <div class="input-field col s6" >
+                <select id="nivel-educativo">
+                    <option value="" disabled selected>Elija el nivel educativo de su propuesta</option>
+                </select>
+                <label>Nivel educativo</label>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="input-field col s6 hide" id="otra-tematica">
+                <input id="paterno" type="text" class="validate">
+                <label for="paterno">Indicar otra temática</label>
             </div>
         </div>
 
-        <div class="divider"></div>
-        <div class="row" id="expand">
-            <h5>Primeras modalidades</h5>
-            <div class="row">
-                <div class="input-field col s6" >
-                    <select id="tematica">
-                        <option value="" disabled selected>Elija la línea temática de su propuesta</option>
-                    </select>
-                    <label>Línea temática</label>
+        <div class="row">
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>Adjuntar</span>
+                    <input type="file">
                 </div>
-
-                <div class="input-field col s6" >
-                    <select id="nivel-educativo">
-                        <option value="" disabled selected>Elija el nivel educativo de su propuesta</option>
-                    </select>
-                    <label>Nivel educativo</label>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="input-field col s6 hide" id="otra-tematica">
-                    <input id="paterno" type="text" class="validate">
-                    <label for="paterno">Indicar otra temática</label>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Resumen ejecutivo">
                 </div>
             </div>
 
-            <div class="row">
-                <div class="file-field input-field">
-                    <div class="btn">
-                        <span>Adjuntar</span>
-                        <input type="file">
-                    </div>
-                    <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text" placeholder="Resumen ejecutivo">
-                    </div>
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>Adjuntar</span>
+                    <input type="file">
                 </div>
-
-                <div class="file-field input-field">
-                    <div class="btn">
-                        <span>Adjuntar</span>
-                        <input type="file">
-                    </div>
-                    <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text" placeholder="Resumen para evaluar">
-                    </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Resumen para evaluar">
                 </div>
             </div>
         </div>
+    </div>
 
 </div>
 
