@@ -35,4 +35,43 @@ function buscarPartClick(){
 
 }
 
+
+function guardarParticipantes(){
+	var participantes = [];
+	var i = 0;
+	var id = 'form-participantes';
+	var partForm = $('#'.concat(id));
+	do{		
+		var participante = {};
+
+		$.each(partForm.find('input, select'), function(i, val){
+			var elem = $(val);
+			var name = elem.attr('name');
+			var value = elem.val();
+			var type = elem.attr('type');
+
+			if (name !== undefined) {
+				if (type == 'checkbox') {
+					participante[name] = elem.is(':checked');
+				}
+				else if(type == 'radio' && elem.is(':checked')){
+					participante[name] = value;
+				}
+				else if(type != 'radio'){
+					participante[name] = value;					
+				}
+			}
+		});
+
+		participantes.push(participante);
+
+		partForm = $('#'.concat(id, '-', i));
+		i++;
+	}while(partForm.length > 0);
+
+	console.log(participantes);
+}
+
+$('#guardar-participantes').click(guardarParticipantes);
+
 $('.form-part').find('.buscar-part').click(buscarPartClick);
