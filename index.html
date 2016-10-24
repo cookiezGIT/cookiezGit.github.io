@@ -85,16 +85,16 @@
                         <h5>Participante 1</h5>
 
                         <div class="row">
-                            <div class="input-field col m4 s12">
+                            <div class="input-field col l4 m12">
                                 <i class="material-icons prefix">account_circle</i>
                                 <input id="nombre" type="text" class="validate" name="nombre">
                                 <label for="nombre">Nombre</label>
                             </div>
-                            <div class="input-field col m4 s12">
+                            <div class="input-field col l4 m6 s12">
                                 <input id="paterno" type="text" class="validate" name="apellido-paterno">
                                 <label for="paterno">A. Paterno</label>
                             </div>
-                            <div class="input-field col m4 s12">
+                            <div class="input-field col l4 m6 s12">
                                 <input id="materno" type="text" class="validate" name="apellido-materno">
                                 <label for="materno">A. Materno</label>
                             </div>
@@ -174,7 +174,7 @@
         </div>
         <div class="row">
             <div class="col s12">
-                <button class="waves-effect waves-light btn-large" type="submit" name="guardar" id="guardar-participantes">
+                <button class="waves-effect waves-light btn-large hide" type="submit" name="guardar" id="guardar-participantes">
                     <i class="material-icons left">save</i>
                     Guardar participantes
                 </button>
@@ -213,8 +213,8 @@
         <div class="row">
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">assignment</i>
-                <input id="nombre" type="text" class="validate">
-                <label for="nombre"> Título de la propuesta</label>
+                <input id="titulo" type="text" class="validate">
+                <label for="titulo"> Título de la propuesta</label>
             </div>
         </div>
 
@@ -243,7 +243,7 @@
     <div class="section">
         <div class="row">
             <div class="col s12">
-                <button class="waves-effect waves-light btn-large" type="submit" name="guardar">
+                <button class="waves-effect waves-light btn-large" type="submit" name="guardar" id="enviar-propuesta">
                     <i class="material-icons left">send</i>
                     Enviar propuesta
                 </button>
@@ -305,10 +305,11 @@
             var forms = expandParticipantes.find('.form-part');
             for (var i = cantParticipantes-val; i > 0; i--) {
                 forms.get(forms.length-i).remove();
-            }
+            }            
         }
-        //participanteForm = participanteForm.clone();
+
         cantParticipantes = val;
+        mostrarBotonGuardarParticipantes();
         $('select').material_select();
     }
 

@@ -1,3 +1,5 @@
+var participantes;
+
 function buscarPartClick(){
 	var button = $(this);
 	var num = button.data('num');
@@ -5,8 +7,8 @@ function buscarPartClick(){
 	if (num !== "")
 		minus = "-"
 
-	var fullForm = $('#form-participantes'.concat(minus, num));
-	var tipo = fullForm.find('input[name="search-group1"]:checked').val();
+	var particForm = $('#form-participantes'.concat(minus, num));
+	var tipo = particForm.find('input[name="search-group1"]:checked').val();
 
 	var numDoc = $('#search-docnum'.concat(minus, num)).val();
 
@@ -19,25 +21,49 @@ function buscarPartClick(){
 		num: numDoc
 	}
 
-	console.log(object);
-
-	/*jQuery(function($) {
+	jQuery(function($) {
         $.ajax({
-            type: 'POST',
-            url: 'WS/ListarModalidad.php',
+            type: 'GET',
+            url: 'https://demo1779969.mockable.io/participante',
             success: function(data) {
-
+            	colocarDatosParticipante(data, minus.concat(num));
             }
         });
-    });*/
-    fullForm.find('.search').remove();
-    fullForm.find('.main-form').removeClass('hide');
+    });
+    particForm.find('.search').remove();
+    particForm.find('.main-form').removeClass('hide');
 
+    mostrarBotonGuardarParticipantes();
 }
 
+function colocarDatosParticipante(participante, formSuffix){
+	$('#nombre'.concat(formSuffix)).val(participante.nombre);
+	$('#paterno'.concat(formSuffix)).val(participante['apellido-paterno']);
+	$('#materno'.concat(formSuffix)).val(participante['apellido-materno']);
+	$('#docnum'.concat(formSuffix)).val(participante['num-documento']);
+	$('#institucion'.concat(formSuffix)).val(participante.institucion);
+	$('#email'.concat(formSuffix)).val(participante.email);
+	$('#telefono'.concat(formSuffix)).val(participante.telefono);	
+
+	$('#expositor'.concat(formSuffix)).attr('checked', participante.expositor);
+	$('#coordinador'.concat(formSuffix)).attr('checked', participante.coordinador);
+
+	var select = $('#pais'.concat(formSuffix));
+	select.val(participante.pais);
+	select.material_select();
+
+	var radioGroup = $('#form-participantes'.concat(formSuffix, ' ', 'input:radio[name="tipo-doc"]'));
+	$.each(radioGroup, function(i, val){
+		var radio = $(val);
+		if (radio.val() == participante.documento)
+			radio.attr('checked', 'checked');
+	});
+
+	Materialize.updateTextFields();
+}
 
 function guardarParticipantes(){
-	var participantes = [];
+	participantes = [];
 	var i = 0;
 	var id = 'form-participantes';
 	var partForm = $('#'.concat(id));
@@ -60,6 +86,9 @@ function guardarParticipantes(){
 				else if(type != 'radio'){
 					participante[name] = value;					
 				}
+				elem.attr('disabled', true);
+				if (val.tagName == 'SELECT')
+					elem.material_select();
 			}
 		});
 
@@ -70,6 +99,17 @@ function guardarParticipantes(){
 	}while(partForm.length > 0);
 
 	console.log(participantes);
+}
+
+
+function mostrarBotonGuardarParticipantes(){
+	var cantSearchBoxes = $('.search').length;
+    if(cantSearchBoxes === 0){
+    	$('#guardar-participantes').removeClass('hide');
+    }
+    else{
+    	$('#guardar-participantes').addClass('hide');
+    }
 }
 
 $('#guardar-participantes').click(guardarParticipantes);
