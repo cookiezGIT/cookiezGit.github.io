@@ -141,6 +141,18 @@ function guardarParticipantes(){
 
 		partForm = $('#'.concat(id, '-', i));
 		i++;
+
+		jQuery(function($) {
+	        $.ajax({
+	            type: 'POST',
+	            url: 'WS/RegistrarPropuesta.php',
+	            dataType: 'text',
+	            data: participante,
+	            success: function(data) {
+	            	console.log(data);
+            	}
+        });
+    });
 	}while(partForm.length > 0);
 
 	console.log(participantes);
