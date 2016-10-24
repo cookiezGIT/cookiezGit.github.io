@@ -26,7 +26,7 @@ function buscarPartClick(){
             type: 'GET',
             url: 'https://demo1779969.mockable.io/participante',
             success: function(data) {
-            	colocarDatosParticipante(undefined, minus.concat(num));
+            	colocarDatosParticipante(data, minus.concat(num));
             }
         });
     });
@@ -44,7 +44,7 @@ function colocarDatosParticipante(participante, formSuffix){
 		$('#docnum'.concat(formSuffix)).val(participante['num-documento']);
 		$('#institucion'.concat(formSuffix)).val(participante.institucion);
 		$('#email'.concat(formSuffix)).val(participante.email);
-		$('#telefono'.concat(formSuffix)).val(participante.telefono);	
+		$('#telefono'.concat(formSuffix)).val(participante.telefono);
 
 		$('#expositor'.concat(formSuffix)).attr('checked', participante.expositor);
 		$('#coordinador'.concat(formSuffix)).attr('checked', participante.coordinador);
@@ -106,7 +106,7 @@ function guardarParticipantes(){
 	var i = 0;
 	var id = 'form-participantes';
 	var partForm = $('#'.concat(id));
-	do{		
+	do{
 		var participante = {};
 
 		var inputs = partForm.find('input, select');
@@ -128,9 +128,9 @@ function guardarParticipantes(){
 					participante[name] = value;
 				}
 				else if(type != 'radio'){
-					participante[name] = value;					
+					participante[name] = value;
 				}
-				
+
 				elem.attr('disabled', true);
 				if (inputs.get(j).tagName == 'SELECT')
 					elem.material_select();
