@@ -155,6 +155,8 @@ function guardarParticipantes(){
     });
 	}while(partForm.length > 0);
 
+	//$(this).remove();
+
 	console.log(participantes);
 }
 

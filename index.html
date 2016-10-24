@@ -106,13 +106,7 @@
                                 <i class="material-icons prefix">picture_in_picture</i>
                                 <label style="margin-top:-5px;margin-bottom: 5px;">Tipo de documento</label>
                                 <div>
-                                    <p style="margin-top: 25px;" name>
-                                        <input class="with-gap" name="search-group1" type="radio" id="search-doc1" value="DNI" />
-                                        <label for="search-doc1">DNI</label>
-                                        <input class="with-gap" name="search-group1" type="radio" id="search-doc2" value="CE"/>
-                                        <label for="search-doc2">C.E.</label>
-                                        <input class="with-gap" name="search-group1" type="radio" id="search-doc3" value="Pass"/>
-                                        <label for="search-doc3">Pasaporte</label>
+                                    <p class="div-search-tipo-doc" style="margin-top: 25px;" name>
                                     </p>
                                 </div>
                             </div>
@@ -130,7 +124,7 @@
                         </div>
                     </div>
 
-                    <div class="main-form">
+                    <div class="hide main-form">
                         <h5>Participante 1</h5>
 
                         <div class="row">
@@ -153,13 +147,7 @@
                             <div class="input-field col s7">
                                 <i class="material-icons prefix">picture_in_picture</i>
                                 <label style="margin-top:-5px;margin-bottom: 5px;">Documento</label>
-                                <p style="margin-top: 25px;" name>
-                                    <input class="with-gap" name="tipo-doc" type="radio" id="doc1" value="DNI" />
-                                    <label for="doc1">DNI</label>
-                                    <input class="with-gap" name="tipo-doc" type="radio" id="doc2"  value="CE" />
-                                    <label for="doc2">C.E.</label>
-                                    <input class="with-gap" name="tipo-doc" type="radio" id="doc3"  value="Pass" />
-                                    <label for="doc3">Pasaporte</label>
+                                <p class="div-tipo-doc" style="margin-top: 25px;" name>
                                 </p>
                             </div>
 
@@ -178,8 +166,6 @@
                             <div class="input-field col s5">
                                 <select name="pais" class="paises" id="pais">
                                     <option value="none" disabled selected>Elija su país</option>
-                                    <option value="23">Perú</option>
-                                    <option value="15">Chile</option>
                                     <!-- ListarPais(); -->
                                 </select>
                                 <label>País</label>
@@ -276,12 +262,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
 <script>
-    var paises = cargarPais();
     var cantParticipantes = 1;
     var participanteForm = $('#form-participantes').clone(); 
-
-    //asi debe quedar para producción. La asignación se debe realizar al momento de cargar los paises.
-    //var participanteForm;
 
     function addAttrSuffixToInput(suffix, form, element, attr){
         var elements = form.find(element);
@@ -315,6 +297,8 @@
                 participanteForm.find('.buscar-part').click(buscarPartClick);
 
                 expandParticipantes.append(participanteForm);
+                ListarPais(participanteForm);
+                ListarTipoDocumento(participanteForm, '-'.concat((i-1).toString()));
                 participanteForm = aux;
             }
         }
@@ -327,15 +311,9 @@
 
         cantParticipantes = val;
         mostrarBotonGuardarParticipantes();
-        $('select').material_select();
     }
 
-    function cargarFormParticipantes(){
-
-    }
-
-    function cargarPais(){
-        var datos;
+    function ListarPais(form){
         jQuery(function($) {
             $.ajax({
                 type: 'POST',
@@ -347,19 +325,39 @@
                         console.log('error en ws');
                     }
                     var pre = JSON.parse(data);
-                    datos = pre;
-                    var sel = $('.paises');
-                    /**
+                    var sel = form.find('.paises');
+
                     for(i=0;i<pre.length;i++){
-                        sel.append('<option value="'+pre[i].CO_PAIS+'" data-DUIS="'+pre[i].ID_PAIS+'">'+pre[i].NO_PAIS+'</option>')
+                        sel.append('<option value="'+pre[i].CO_PAIS+'" data-DUIS="'+pre[i].ID_PAIS+'">'+pre[i].NO_PAIS+'</option>');
                     }
-                    participanteForm = $('#form-participantes').clone();
-                     **/
-                    $('select').material_select();
+                    sel.material_select();
                 }
             });
         });
-    return datos;
+    }
+
+    function ListarTipoDocumento(form, suffix = ''){
+        jQuery(function($) {
+            $.ajax({
+                type: 'POST',
+                url: 'WS/ListarTipoDocumento.php',
+                success: function(data) {
+                    try{
+                        JSON.parse(data);
+                    } catch(err) {
+                        console.log('error en ws');
+                    }
+                    var pre = JSON.parse(data);
+                    var selSearch = form.find('.div-search-tipo-doc');
+                    var sel = form.find('.div-tipo-doc');
+                    for(i=0;i<pre.length;i++){
+                        selSearch.append('<input class="with-gap" name="search-group1' + suffix + '" type="radio" id="search-doc' + (i+1) + suffix + '" value="' + pre[i].ID_TIPO_DOCUMENTO + '" /><label for="search-doc' + (i+1) + suffix + '">' + pre[i].NO_TIPO_DOCUMENTO + '</label>');
+
+                        sel.append('<input class="with-gap" name="tipo-doc" type="radio" id="doc' + (i+1) + suffix + '" value="' + pre[i].ID_TIPO_DOCUMENTO + '" /><label for="doc' + (i+1) + suffix + '">' + pre[i].NO_TIPO_DOCUMENTO + '</label>')
+                    }
+                }
+            });
+        });
     }
 
     function ListarLineaTematica(){
@@ -378,7 +376,7 @@
                     for(i=0;i<pre.length;i++){
                         sel.append('<option value="'+pre[i].ID_LINEA_TEMATICA+'">'+pre[i].NO_LINEA_TEMATICA+'</option>');
                     }
-                    $('select').material_select();
+                    sel.material_select();
                 }
             });
         });
@@ -398,9 +396,9 @@
                     var pre = JSON.parse(data);
                     var sel = $('#nivel-educativo');
                     for(i=0;i<pre.length;i++){
-                        sel.append('<option value="'+pre[i].ID_NIVEL_EDUCATIVO+'">'+pre[i].TX_NIVEL_EDUCATIVO+'</option>')
+                        sel.append('<option value="'+pre[i].ID_NIVEL_EDUCATIVO+'">'+pre[i].TX_NIVEL_EDUCATIVO+'</option>');
                     }
-                    $('select').material_select();
+                    sel.material_select();
                 }
             });
         });
@@ -420,33 +418,13 @@
                     var pre = JSON.parse(data);
                     var sel = $('#modalidades');
                     for(i=0;i<pre.length;i++){
-                        sel.append('<option value="'+pre[i].ID_MODALIDAD+'" data-DUIS="'+pre[i].ID_PAIS+'">'+pre[i].NO_MODALIDAD+'</option>')
+                        sel.append('<option value="'+pre[i].ID_MODALIDAD+'" data-DUIS="'+pre[i].ID_PAIS+'">'+pre[i].NO_MODALIDAD+'</option>');
                     }
-                    $('select').material_select();
+                    sel.material_select();
                 }
             });
         });
     }
-
-    //Listener para ampliar el formulario
-    $('#modalidades').change(function(){
-        // var val = $('#modalidades').val();
-        // console.log(val);
-        // if(val<=5){
-        //     //Floro
-        //     Mostrar1();
-        // }else if (val==6){
-        //     //Fotografía
-        //     Mostrar2();
-        // }else{
-        //     //Video
-        //     Mostrar3();
-        // }
-    });
-
-
-
-
 
     //Lo dejo para reusar luego
     function ListarModalidadDeprecated(){
@@ -484,7 +462,7 @@
     function showErrorMessage(msg, id = '#notificaciones'){
         var notif = $(id);
         notif.text(msg);
-        $('html, body').animate({ scrollTop: 0 }, 'slow');
+        $('html, body').animate({ scrollTop: notif.offset().top-2 }, 'slow');
         if (notif.hasClass('hide')) {
             notif.removeClass('hide');
             setTimeout(function(){
@@ -495,15 +473,17 @@
 
 </script>
 <script>
-    //ListarPais();
     ListarModalidad();
     ListarLineaTematica();
     ListarNivelEducativo();
 
+    var partForm = $('#form-participantes');
+    ListarTipoDocumento(partForm);
+    ListarPais(partForm);
+
     $('#tematica').change(onChangeTematica);
     $('#participantes').change(onChangeParticipantes);
-
-    $('select').material_select();
+    $('#participantes').material_select();
 </script>
 
 <script type="text/javascript" src="guardarParticipantes.js"></script>
