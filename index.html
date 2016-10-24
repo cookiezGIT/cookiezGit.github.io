@@ -17,16 +17,65 @@
 
 <div class="container">
     <h3>Registro de Propuesta</h3>
+
     <div class="divider"></div>
-    <h5>Sobre la Propuesta</h5>
-    <div class="row">
-        <div class="input-field col s12 m6">
-            <select id="modalidades">
-                <option value="" disabled selected>Elija la modalidad de su propuesta</option>
-            </select>
-            <label>Modalidad</label>
+    <div class="section">
+        <h5>Sobre la Propuesta</h5>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <select id="modalidades">
+                    <option value="" disabled selected>Elija la modalidad de su propuesta</option>
+                </select>
+                <label>Modalidad</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12 m6" >
+                <select id="tematica">
+                    <option value="" disabled selected>Elija la línea temática de su propuesta</option>
+                </select>
+                <label>Línea temática</label>
+            </div>
+
+            <div class="input-field col s12 m6 hide" id="otra">
+                <input id="otra-tematica" type="text" class="validate">
+                <label for="paterno">Indicar la otra temática</label>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="input-field col s12 m6" >
+                <select id="nivel-educativo">
+                    <option value="" disabled selected>Elija el nivel educativo de su propuesta</option>
+                </select>
+                <label>Nivel educativo</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">assignment</i>
+                <input id="titulo" type="text" class="validate">
+                <label for="titulo"> Título de la propuesta</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col m6 s12">
+                <div class="card-panel z-depth-5 red darken-4 white-text hide" id="datos-notificaciones">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <button class="waves-effect waves-light btn-large" type="submit" name="guardar" id="enviar-datos-propuesta">
+                    <i class="material-icons left">send</i>
+                    Enviar propuesta
+                </button>
+            </div>
         </div>
     </div>
+
     <div class="divider"></div>
     <div class="section">
         <h5>Participantes</h5>
@@ -71,7 +120,7 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <input id="search-docnum" type="number" class="validate">
-                                <label for="search-docnum"># de documento</label>
+                                <label for="search-docnum">Número de documento</label>
                             </div>
                         </div>
                         <div class="row">
@@ -81,7 +130,7 @@
                         </div>
                     </div>
 
-                    <div class="hide main-form">
+                    <div class="main-form">
                         <h5>Participante 1</h5>
 
                         <div class="row">
@@ -183,41 +232,9 @@
     </div>
 
     <div class="divider"></div>
-
+    <h5>Archivos</h5>
 
     <div class="section" id="expand">
-        <h5>Primeras modalidades</h5>
-        <div class="row">
-            <div class="input-field col s12 m6" >
-                <select id="tematica">
-                    <option value="" disabled selected>Elija la línea temática de su propuesta</option>
-                </select>
-                <label>Línea temática</label>
-            </div>
-
-            <div class="input-field col s12 m6 hide" id="otra-tematica">
-                <input id="paterno" type="text" class="validate">
-                <label for="paterno">Indicar la otra temática</label>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="input-field col s12 m6" >
-                <select id="nivel-educativo">
-                    <option value="" disabled selected>Elija el nivel educativo de su propuesta</option>
-                </select>
-                <label>Nivel educativo</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s12 m6">
-                <i class="material-icons prefix">assignment</i>
-                <input id="titulo" type="text" class="validate">
-                <label for="titulo"> Título de la propuesta</label>
-            </div>
-        </div>
-
         <div class="row">
             <div class="file-field input-field">
                 <div class="btn">
@@ -238,7 +255,7 @@
                     <input class="file-path validate" type="text" placeholder="Resumen para evaluar">
                 </div>
             </div>
-        </div>
+        </div>       
     </div>
     <div class="section">
         <div class="row">
@@ -413,18 +430,18 @@
 
     //Listener para ampliar el formulario
     $('#modalidades').change(function(){
-        var val = $('#modalidades').val();
-        console.log(val);
-        if(val<=5){
-            //Floro
-            Mostrar1();
-        }else if (val==6){
-            //Fotografía
-            Mostrar2();
-        }else{
-            //Video
-            Mostrar3();
-        }
+        // var val = $('#modalidades').val();
+        // console.log(val);
+        // if(val<=5){
+        //     //Floro
+        //     Mostrar1();
+        // }else if (val==6){
+        //     //Fotografía
+        //     Mostrar2();
+        // }else{
+        //     //Video
+        //     Mostrar3();
+        // }
     });
 
 
@@ -457,16 +474,17 @@
 
     function onChangeTematica(){
         if ($('#tematica').val() == 24){
-            $('#otra-tematica').removeClass('hide');
+            $('#otra').removeClass('hide');
         }
         else{
-            $('#otra-tematica').addClass('hide');
+            $('#otra').addClass('hide');
         }
     }
 
-    function showErrorMessage(msg){
-        var notif = $('#notificaciones');
+    function showErrorMessage(msg, id = '#notificaciones'){
+        var notif = $(id);
         notif.text(msg);
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
         if (notif.hasClass('hide')) {
             notif.removeClass('hide');
             setTimeout(function(){

@@ -26,7 +26,7 @@ function buscarPartClick(){
             type: 'GET',
             url: 'https://demo1779969.mockable.io/participante',
             success: function(data) {
-            	colocarDatosParticipante(undefined, minus.concat(num));
+            	colocarDatosParticipante(data, minus.concat(num));
             }
         });
     });
