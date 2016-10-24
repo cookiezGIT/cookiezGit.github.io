@@ -27,8 +27,8 @@ $parametros= array('ID_TIPO_PARTICIPANTE'    => "1",
                    'NU_TELEFONO'    => $telf,
                    'NO_INSTITUCION'    => $institucion,
                    'RPTA'    => "0",
-                   'MENS'    => " ");
-$client = new SoapClient($servicio, $parametros);
+                   'MENS'    => "1");
+$client = new SoapClient($servicio, []);
 $result = $client->RegistrarParticipante($parametros);
 
 $outp = json_encode($result->RegistrarParticipanteResponse);
