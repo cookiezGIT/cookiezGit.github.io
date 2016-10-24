@@ -145,7 +145,7 @@ function guardarParticipantes(){
 		jQuery(function($) {
 	        $.ajax({
 	            type: 'POST',
-	            url: 'WS/RegistrarPropuesta.php',
+	            url: 'WS/RegistrarParticipante.php',
 	            dataType: 'text',
 	            data: participante,
 	            success: function(data) {
