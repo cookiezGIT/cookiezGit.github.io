@@ -26,7 +26,7 @@ function buscarPartClick(){
             type: 'GET',
             url: 'https://demo1779969.mockable.io/participante',
             success: function(data) {
-            	colocarDatosParticipante(data, minus.concat(num));
+            	colocarDatosParticipante(undefined, minus.concat(num));
             }
         });
     });
@@ -37,29 +37,68 @@ function buscarPartClick(){
 }
 
 function colocarDatosParticipante(participante, formSuffix){
-	$('#nombre'.concat(formSuffix)).val(participante.nombre);
-	$('#paterno'.concat(formSuffix)).val(participante['apellido-paterno']);
-	$('#materno'.concat(formSuffix)).val(participante['apellido-materno']);
-	$('#docnum'.concat(formSuffix)).val(participante['num-documento']);
-	$('#institucion'.concat(formSuffix)).val(participante.institucion);
-	$('#email'.concat(formSuffix)).val(participante.email);
-	$('#telefono'.concat(formSuffix)).val(participante.telefono);	
+	if (participante !== undefined) {
+		$('#nombre'.concat(formSuffix)).val(participante.nombre);
+		$('#paterno'.concat(formSuffix)).val(participante['apellido-paterno']);
+		$('#materno'.concat(formSuffix)).val(participante['apellido-materno']);
+		$('#docnum'.concat(formSuffix)).val(participante['num-documento']);
+		$('#institucion'.concat(formSuffix)).val(participante.institucion);
+		$('#email'.concat(formSuffix)).val(participante.email);
+		$('#telefono'.concat(formSuffix)).val(participante.telefono);	
 
-	$('#expositor'.concat(formSuffix)).attr('checked', participante.expositor);
-	$('#coordinador'.concat(formSuffix)).attr('checked', participante.coordinador);
+		$('#expositor'.concat(formSuffix)).attr('checked', participante.expositor);
+		$('#coordinador'.concat(formSuffix)).attr('checked', participante.coordinador);
 
-	var select = $('#pais'.concat(formSuffix));
-	select.val(participante.pais);
-	select.material_select();
+		var select = $('#pais'.concat(formSuffix));
+		select.val(participante.pais);
+		select.material_select();
 
-	var radioGroup = $('#form-participantes'.concat(formSuffix, ' ', 'input:radio[name="tipo-doc"]'));
-	$.each(radioGroup, function(i, val){
-		var radio = $(val);
-		if (radio.val() == participante.documento)
-			radio.attr('checked', 'checked');
-	});
+		var radioGroup = $('#form-participantes'.concat(formSuffix, ' ', 'input:radio[name="tipo-doc"]'));
+		$.each(radioGroup, function(i, val){
+			var radio = $(val);
+			if (radio.val() == participante.documento)
+				radio.attr('checked', 'checked');
+		});
 
-	Materialize.updateTextFields();
+		Materialize.updateTextFields();
+	}
+}
+
+function validarParticipante(inputs, numeroParticipante){
+	var isRadioSelected = false;
+	var isCheckboxSelected = false;
+
+	for (var j = 0; j < inputs.length; j++) {
+		var elem = $(inputs.get(j));
+		var name = elem.attr('name');
+		var value = elem.val();
+		var type = elem.attr('type');
+
+		if (name !== undefined) {
+			if (value === "" || value === undefined || value === null) {
+				showErrorMessage('El participante '.concat(numeroParticipante + 1, ' requiere ', name, '.'));
+				return false;
+			}
+			else if (type == 'radio' && elem.is(':checked')) {
+				isRadioSelected = true;
+			}
+			else if(type == 'checkbox' && elem.is(':checked')){
+				isCheckboxSelected = true;
+			}
+		}
+	}
+
+	if (isRadioSelected === false) {
+		showErrorMessage('El participante '.concat(numeroParticipante + 1, ' requiere su tipo de documento.'));
+		return false;
+	}
+
+	if (isCheckboxSelected === false) {
+		showErrorMessage('El participante '.concat(numeroParticipante + 1, ' requiere un tipo de persona.'));
+		return false;
+	}
+
+	return true;
 }
 
 function guardarParticipantes(){
@@ -70,8 +109,13 @@ function guardarParticipantes(){
 	do{		
 		var participante = {};
 
-		$.each(partForm.find('input, select'), function(i, val){
-			var elem = $(val);
+		var inputs = partForm.find('input, select');
+
+		if (!validarParticipante(inputs, i))
+			return;
+
+		for (var j = 0; j < inputs.length; j++) {
+			var elem = $(inputs.get(j));
 			var name = elem.attr('name');
 			var value = elem.val();
 			var type = elem.attr('type');
@@ -86,11 +130,12 @@ function guardarParticipantes(){
 				else if(type != 'radio'){
 					participante[name] = value;					
 				}
+				
 				elem.attr('disabled', true);
-				if (val.tagName == 'SELECT')
+				if (inputs.get(j).tagName == 'SELECT')
 					elem.material_select();
 			}
-		});
+		}
 
 		participantes.push(participante);
 
@@ -100,7 +145,6 @@ function guardarParticipantes(){
 
 	console.log(participantes);
 }
-
 
 function mostrarBotonGuardarParticipantes(){
 	var cantSearchBoxes = $('.search').length;
