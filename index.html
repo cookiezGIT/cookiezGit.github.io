@@ -260,7 +260,7 @@
     var participanteForm = aux.clone();
     aux.find('h5').text('Coordinador');
     aux.find('.div-tipo-participante').addClass('hide');
-    aux.find('.div-tipo-participante').find('input').val('1');
+    aux.find('.div-tipo-participante').find('input').val('1').attr('checked', 'checked');
 
     function addAttrSuffixToInput(suffix, form, element, attr){
         var elements = form.find(element);
@@ -325,7 +325,7 @@
                     var sel = form.find('.paises');
 
                     for(i=0;i<pre.length;i++){
-                        sel.append('<option value="'+pre[i].CO_PAIS+'" data-DUIS="'+pre[i].ID_PAIS+'">'+pre[i].NO_PAIS+'</option>');
+                        sel.append('<option value="'+pre[i].ID_PAIS+'">'+pre[i].NO_PAIS+'</option>');
                     }
                     sel.material_select();
                 }

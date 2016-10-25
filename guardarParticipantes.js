@@ -122,7 +122,7 @@ function guardarParticipantes(){
 
 			if (name !== undefined) {
 				if (type == 'checkbox') {
-					participante[name] = elem.is(':checked');
+					participante[name] = value;
 				}
 				else if(type == 'radio' && elem.is(':checked')){
 					participante[name] = value;
@@ -142,17 +142,17 @@ function guardarParticipantes(){
 		partForm = $('#'.concat(id, '-', i));
 		i++;
 
-		jQuery(function($) {
-	        $.ajax({
-	            type: 'POST',
-	            url: 'WS/RegistrarParticipante.php',
-	            dataType: 'text',
-	            data: participante,
-	            success: function(data) {
-	            	console.log(data);
-            	}
-        });
-    });
+		// jQuery(function($) {
+	 //        $.ajax({
+	 //            type: 'POST',
+	 //            url: 'WS/RegistrarParticipante.php',
+	 //            dataType: 'text',
+	 //            data: participante,
+	 //            success: function(data) {
+	 //            	console.log(data);
+  //           	}
+  //       });
+    // });
 	}while(partForm.length > 0);
 
 	//$(this).remove();
