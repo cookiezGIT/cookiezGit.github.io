@@ -16,17 +16,22 @@ function buscarPartClick(){
 		showErrorMessage('Debe completar los datos para poder realizar la busqueda.');
 	}
 
-	var object = {
-		tipo: tipo,
-		num: numDoc
-	}
-
 	jQuery(function($) {
         $.ajax({
-            type: 'GET',
-            url: 'https://demo1779969.mockable.io/participante',
+            type: 'POST',
+            url: 'WS/FiltrarParticipanteDocumento.php',
+            dataType: 'text',
+            data: {'tipo-doc': tipo, 'numero-documento': numDoc},
             success: function(data) {
-            	colocarDatosParticipante(data, minus.concat(num));
+            		try{
+                   		JSON.parse(data);
+                   		var pre = JSON.parse(data);
+                   		console.log(pre);
+                   		colocarDatosParticipante(pre, minus.concat(num));
+                    } catch(err) {
+                        console.log('No se encontró al participante.')
+                    }
+            	
             }
         });
     });
@@ -38,31 +43,36 @@ function buscarPartClick(){
 
 function colocarDatosParticipante(participante, formSuffix){
 	if (participante !== undefined) {
-		$('#nombre'.concat(formSuffix)).val(participante.nombre);
-		$('#paterno'.concat(formSuffix)).val(participante['apellido-paterno']);
-		$('#materno'.concat(formSuffix)).val(participante['apellido-materno']);
-		$('#docnum'.concat(formSuffix)).val(participante['num-documento']);
-		$('#institucion'.concat(formSuffix)).val(participante.institucion);
-		$('#email'.concat(formSuffix)).val(participante.email);
-		$('#telefono'.concat(formSuffix)).val(participante.telefono);
+		$('#nombre'.concat(formSuffix)).val(participante.NO_NOMBRE);
+		$('#paterno'.concat(formSuffix)).val(participante.NO_APELLIDO_PATERNO);
+		$('#materno'.concat(formSuffix)).val(participante.NO_APELLIDO_MATERNO);
+		$('#docnum'.concat(formSuffix)).val(participante.NU_DOCUMENTO);
+		$('#institucion'.concat(formSuffix)).val(participante.NO_INSTITUCION);
+		$('#email'.concat(formSuffix)).val(participante.NO_EMAIL);
+		$('#telefono'.concat(formSuffix)).val(participante.NU_TELEFONO);
 
-		$('#expositor'.concat(formSuffix)).attr('checked', participante.expositor);
-		$('#coordinador'.concat(formSuffix)).attr('checked', participante.coordinador);
+		if(participante.ID_TIPO_PARTICIPANTE == 1){
+		$('#expositor'.concat(formSuffix)).hide();		
+		}else if(participante.ID_TIPO_PARTICIPANTE == 2)
+		$('#expositor'.concat(formSuffix)).attr('checked', true);
+		}else{
+		$('#expositor'.concat(formSuffix)).attr('checked', false);
+		}
 
 		var select = $('#pais'.concat(formSuffix));
-		select.val(participante.pais);
+		select.val(participante.ID_PAIS);
 		select.material_select();
 
 		var radioGroup = $('#form-participantes'.concat(formSuffix, ' ', 'input:radio[name="tipo-doc"]'));
 		$.each(radioGroup, function(i, val){
 			var radio = $(val);
-			if (radio.val() == participante.documento)
+			if (radio.val() == participante.ID_TIPO_DOCUMENTO)
 				radio.attr('checked', 'checked');
 		});
 
 		Materialize.updateTextFields();
 	}
-}
+	
 
 function validarParticipante(inputs, numeroParticipante){
 	var isRadioSelected = false;

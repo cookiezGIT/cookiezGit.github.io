@@ -13,7 +13,7 @@ $parametros= array('ID_TIPO_DOCUMENTO' => "28",
 $client = new SoapClient($servicio, []);
 $result = $client->FiltrarParticipanteDocumento($parametros);
 
-$outp = json_encode($result->FiltrarParticipanteDocumentoResult->BE_Participante);
+$outp = json_encode($result->FiltrarParticipanteDocumentoResult->BE_Paticipante);
 
 echo $outp;
 
