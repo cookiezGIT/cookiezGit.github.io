@@ -20,7 +20,7 @@
 
     <div class="divider"></div>
     <div class="section">
-        <h5>Sobre la Propuesta</h5>
+        <h5>Paso 1 - Sobre la Propuesta</h5>
         <div class="row">
             <div class="input-field col s12 m6">
                 <select id="modalidades">
@@ -70,7 +70,7 @@
             <div class="col s12">
                 <button class="waves-effect waves-light btn-large" type="submit" name="guardar" id="enviar-datos-propuesta">
                     <i class="material-icons left">send</i>
-                    Enviar propuesta
+                    Continuar
                 </button>
             </div>
         </div>
@@ -78,7 +78,7 @@
 
     <div class="divider"></div>
     <div class="section">
-        <h5>Participantes</h5>
+        <h5>Paso 2 - Guardar participantes</h5>
         <p">Requerimos saber cuántas personas han participado en su proyecto para poder registrar a cada una de ellas.</p>
 
         <div class="row">
@@ -186,21 +186,14 @@
                         </div>
 
                         <div class="row">
-                            <div class="col s8">
+                            <div class="col s8 div-tipo-participante">
                                 <h6>Esta persona es...</h6>
                                 <div class="col m6">
                                     <p>
-                                        <input type="checkbox" class="filled-in" id="expositor" name="expositor" />
-                                        <label for="expositor">Expositor</label>
+                                        <input type="checkbox" class="filled-in" id="tipo-participante" name="tipo-participante" value="2" />
+                                        <label for="tipo-participante">Expositor</label>
                                     </p>
                                 </div>
-                                <div class="col m6">
-                                    <p>
-                                        <input type="checkbox" class="filled-in" id="coordinador" name="coordinador" />
-                                        <label for="coordinador">Coordinador</label>
-                                    </p>
-                                </div>
-
                             </div>
                         </div>
                     </div>
@@ -218,7 +211,7 @@
     </div>
 
     <div class="divider"></div>
-    <h5>Archivos</h5>
+    <h5>Paso 3 - Guardar archivos</h5>
 
     <div class="section" id="expand">
         <div class="row">
@@ -248,7 +241,7 @@
             <div class="col s12">
                 <button class="waves-effect waves-light btn-large" type="submit" name="guardar" id="enviar-propuesta">
                     <i class="material-icons left">send</i>
-                    Enviar propuesta
+                    Finalizar
                 </button>
             </div>
         </div>
@@ -263,7 +256,11 @@
 
 <script>
     var cantParticipantes = 1;
-    var participanteForm = $('#form-participantes').clone(); 
+    var aux = $('#form-participantes'); 
+    var participanteForm = aux.clone();
+    aux.find('h5').text('Coordinador');
+    aux.find('.div-tipo-participante').addClass('hide');
+    aux.find('.div-tipo-participante').find('input').val('1');
 
     function addAttrSuffixToInput(suffix, form, element, attr){
         var elements = form.find(element);

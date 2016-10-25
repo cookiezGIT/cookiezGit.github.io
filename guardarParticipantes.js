@@ -156,6 +156,7 @@ function guardarParticipantes(){
 	}while(partForm.length > 0);
 
 	//$(this).remove();
+	$('#participantes').attr('disabled', true);
 
 	console.log(participantes);
 }
