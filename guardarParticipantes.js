@@ -69,7 +69,6 @@ function colocarDatosParticipante(participante, formSuffix){
 
 function validarParticipante(inputs, numeroParticipante){
 	var isRadioSelected = false;
-	var isCheckboxSelected = false;
 
 	for (var j = 0; j < inputs.length; j++) {
 		var elem = $(inputs.get(j));
@@ -85,19 +84,11 @@ function validarParticipante(inputs, numeroParticipante){
 			else if (type == 'radio' && elem.is(':checked')) {
 				isRadioSelected = true;
 			}
-			else if(type == 'checkbox' && elem.is(':checked')){
-				isCheckboxSelected = true;
-			}
 		}
 	}
 
 	if (isRadioSelected === false) {
 		showErrorMessage('El participante '.concat(numeroParticipante + 1, ' requiere su tipo de documento.'));
-		return false;
-	}
-
-	if (isCheckboxSelected === false) {
-		showErrorMessage('El participante '.concat(numeroParticipante + 1, ' requiere un tipo de persona.'));
 		return false;
 	}
 
@@ -125,16 +116,20 @@ function guardarParticipantes(){
 
 			if (name !== undefined) {
 				if (type == 'checkbox') {
-					var pipe = '';
-					participante[name] = '0';
-					if (i === 0) {
-						participante[name] = '1';
-						pipe = "|"
-					}
 
 					if (elem.is(':checked')) {
-						participante[name].concat(pipe, value);
+						participante[name] = value;
+						if (i === 0) {
+							participante[name] = '1|'.concat(value);
+						}
 					}
+					else{
+						participante[name] = '0';
+						if (i === 0) {
+							participante[name] = '1';
+						}
+					}
+
 				}
 				else if(type == 'radio' && elem.is(':checked')){
 					participante[name] = value;
@@ -163,6 +158,7 @@ function guardarParticipantes(){
 	            	console.log(data);
             	}
         });
+	    console.log(participante);
 
 		partForm = $('#'.concat(id, '-', i));
 		i++;
