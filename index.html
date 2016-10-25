@@ -39,7 +39,7 @@
             </div>
 
             <div class="input-field col s12 m6 hide" id="otra">
-                <input id="otra-tematica" type="text" class="validate">
+                <input id="otra-tematica" type="text" class="validate" maxlength="100">
                 <label for="paterno">Indicar la otra temática</label>
             </div>
         </div>
@@ -213,28 +213,10 @@
     <div class="divider"></div>
     <h5>Paso 3 - Guardar archivos</h5>
 
-    <div class="section" id="expand">
+    <div class="section" id="expand"> 
         <div class="row">
-            <div class="file-field input-field">
-                <div class="btn">
-                    <span>Adjuntar</span>
-                    <input type="file" accept=".doc, .docm, .docx">
-                </div>
-                <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text" placeholder="Resumen ejecutivo">
-                </div>
-            </div>
-
-            <div class="file-field input-field">
-                <div class="btn">
-                    <span>Adjuntar</span>
-                    <input type="file" accept=".doc, .docm, .docx">
-                </div>
-                <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text" placeholder="Resumen para evaluar">
-                </div>
-            </div>
-        </div>       
+            <iframe id="ifr" name="ifr"  src="http://172.16.41.182/WebUCM/Default.aspx" width ="100%" height="175px" frameborder="0" style="overflow-y:scroll;overflow-x:hidden;"  ></iframe>
+        </div>
     </div>
     <div class="section">
         <div class="row">
@@ -468,6 +450,13 @@
         }
     }
 
+    $('iframe').load( function() {
+    $('iframe').contents().find("head")
+        .append('<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">"');
+        var div = $('#ifr').contents().find('#divPropuestas');
+        div.empty();
+        div.load('http://172.16.41.182/formulario/replaceForm.html');
+    });
 </script>
 <script>
     ListarModalidad();

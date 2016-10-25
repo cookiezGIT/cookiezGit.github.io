@@ -51,14 +51,6 @@ function colocarDatosParticipante(participante, formSuffix){
 		$('#email'.concat(formSuffix)).val(participante.NO_EMAIL);
 		$('#telefono'.concat(formSuffix)).val(participante.NU_TELEFONO);
 
-		if(participante.ID_TIPO_PARTICIPANTE == 1){
-		$('#expositor'.concat(formSuffix)).hide();		
-		}else if(participante.ID_TIPO_PARTICIPANTE == 2)
-		$('#expositor'.concat(formSuffix)).attr('checked', true);
-		}else{
-		$('#expositor'.concat(formSuffix)).attr('checked', false);
-		}
-
 		var select = $('#pais'.concat(formSuffix));
 		select.val(participante.ID_PAIS);
 		select.material_select();
@@ -72,6 +64,7 @@ function colocarDatosParticipante(participante, formSuffix){
 
 		Materialize.updateTextFields();
 	}
+}
 	
 
 function validarParticipante(inputs, numeroParticipante){
@@ -152,17 +145,17 @@ function guardarParticipantes(){
 		partForm = $('#'.concat(id, '-', i));
 		i++;
 
-		// jQuery(function($) {
-	 //        $.ajax({
-	 //            type: 'POST',
-	 //            url: 'WS/RegistrarParticipante.php',
-	 //            dataType: 'text',
-	 //            data: participante,
-	 //            success: function(data) {
-	 //            	console.log(data);
-  //           	}
-  //       });
-    // });
+		jQuery(function($) {
+	        $.ajax({
+	            type: 'POST',
+	            url: 'WS/RegistrarParticipante.php',
+	            dataType: 'text',
+	            data: participante,
+	            success: function(data) {
+	            	console.log(data);
+            	}
+        });
+    });
 	}while(partForm.length > 0);
 
 	//$(this).remove();
