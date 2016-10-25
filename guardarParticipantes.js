@@ -125,7 +125,16 @@ function guardarParticipantes(){
 
 			if (name !== undefined) {
 				if (type == 'checkbox') {
-					participante[name] = value;
+					var pipe = '';
+					participante[name] = '0';
+					if (i === 0) {
+						participante[name] = '1';
+						pipe = "|"
+					}
+
+					if (elem.is(':checked')) {
+						participante[name].concat(pipe, value);
+					}
 				}
 				else if(type == 'radio' && elem.is(':checked')){
 					participante[name] = value;
@@ -140,10 +149,9 @@ function guardarParticipantes(){
 			}
 		}
 
-		participantes.push(participante);
+		participante['id-propuesta'] = idPropuesta;
 
-		partForm = $('#'.concat(id, '-', i));
-		i++;
+		participantes.push(participante);
 
 		jQuery(function($) {
 	        $.ajax({
@@ -155,11 +163,16 @@ function guardarParticipantes(){
 	            	console.log(data);
             	}
         });
+
+		partForm = $('#'.concat(id, '-', i));
+		i++;
     });
 	}while(partForm.length > 0);
 
 	//$(this).remove();
-	$('#participantes').attr('disabled', true);
+	var select = $('#participantes');
+	select.attr('disabled', true);
+	select.material_select();
 
 	console.log(participantes);
 }

@@ -7,9 +7,9 @@ while(!feof($file)) { $Dir = fgets($file);} fclose($file);
 
 $titulo = $_POST["titulo"];
 $modalidad = $_POST["modalidad"];
-$lineaTematica = $_POST["numero-documento"];
-$nivelEducativo = $_POST["nombre"];
-$otro = $_POST["apellido-materno"];
+$lineaTematica = $_POST["tematica"];
+$nivelEducativo = $_POST["nivelEducativo"];
+$otro = $_POST["otra-tematica"];
 
 
 $servicio = $Dir;

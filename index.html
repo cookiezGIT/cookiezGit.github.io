@@ -17,197 +17,203 @@
 
 <div class="container">
     <h3>Registro de Propuesta</h3>
-
-    <div class="divider"></div>
-    <div class="section">
-        <h5>Paso 1 - Sobre la Propuesta</h5>
-        <div class="row">
-            <div class="input-field col s12 m6">
-                <select id="modalidades">
-                    <option value="" disabled selected>Elija la modalidad de su propuesta</option>
-                </select>
-                <label>Modalidad</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s12 m6" >
-                <select id="tematica">
-                    <option value="" disabled selected>Elija la línea temática de su propuesta</option>
-                </select>
-                <label>Línea temática</label>
-            </div>
-
-            <div class="input-field col s12 m6 hide" id="otra">
-                <input id="otra-tematica" type="text" class="validate" maxlength="100">
-                <label for="paterno">Indicar la otra temática</label>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="input-field col s12 m6" >
-                <select id="nivel-educativo">
-                    <option value="" disabled selected>Elija el nivel educativo de su propuesta</option>
-                </select>
-                <label>Nivel educativo</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s12 m6">
-                <i class="material-icons prefix">assignment</i>
-                <input id="titulo" type="text" class="validate">
-                <label for="titulo"> Título de la propuesta</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col m6 s12">
-                <div class="card-panel z-depth-5 red darken-4 white-text hide" id="datos-notificaciones">
+    <div id="paso1">
+        <div class="divider"></div>
+        <div class="section">
+            <h5>Paso 1 - Sobre la Propuesta</h5>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <select id="modalidades">
+                        <option value="" disabled selected>Elija la modalidad de su propuesta</option>
+                    </select>
+                    <label>Modalidad</label>
+                </div>
+                <div class="input-field col s12 m6 hide" id="foto-video-notif">
+                    <div class="card-panel z-depth-5 orange darken-3 white-text hoverable">
+                        Los concursos de fotografía y video estarán disponibles del 13 de febrero al 15 de mayo de 2017.
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col s12">
-                <button class="waves-effect waves-light btn-large" type="submit" name="guardar" id="enviar-datos-propuesta">
-                    <i class="material-icons left">send</i>
-                    Continuar
-                </button>
+
+            <div class="row">
+                <div class="input-field col s12 m6" >
+                    <select id="tematica">
+                        <option value="" disabled selected>Elija la línea temática de su propuesta</option>
+                    </select>
+                    <label>Línea temática</label>
+                </div>
+
+                <div class="input-field col s12 m6 hide" id="otra">
+                    <input id="otra-tematica" type="text" class="validate" length="100">
+                    <label for="paterno">Indicar la otra temática</label>
+                </div>
             </div>
-        </div>
+            
+            <div class="row">
+                <div class="input-field col s12 m6" >
+                    <select id="nivel-educativo">
+                        <option value="" disabled selected>Elija el nivel educativo de su propuesta</option>
+                    </select>
+                    <label>Nivel educativo</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">assignment</i>
+                    <input id="titulo" type="text" class="validate">
+                    <label for="titulo"> Título de la propuesta</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12">
+                    <div class="card-panel z-depth-5 red darken-4 white-text hide" id="datos-notificaciones">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <button class="waves-effect waves-light btn-large" type="submit" name="guardar" id="enviar-datos-propuesta">
+                        <i class="material-icons left">send</i>
+                        Continuar
+                    </button>
+                </div>
+            </div>
     </div>
+    <div id="paso2" class="hide">
+        <div class="divider"></div>
+        <div class="section">
+            <h5>Paso 2 - Guardar participantes</h5>
+            <p">Requerimos saber cuántas personas han participado en su proyecto para poder registrar a cada una de ellas.</p>
 
-    <div class="divider"></div>
-    <div class="section">
-        <h5>Paso 2 - Guardar participantes</h5>
-        <p">Requerimos saber cuántas personas han participado en su proyecto para poder registrar a cada una de ellas.</p>
-
-        <div class="row">
-            <div class="input-field col m6 s12">
-                <select id="participantes">
-                    <option value="1">1 participante (usted)</option>
-                    <option value="2">2 participantes (usted y un socio)</option>
-                    <option value="3">3 participantes (usted y dos socios)</option>
-                    <option value="4">4 participantes (usted y tres socios)</option>
-                    <option value="5">5 participantes (usted y cuatro socios)</option>
-                </select>
-            </div>
-            <div class="col m6 s12">
-                <div class="card-panel z-depth-5 red darken-4 white-text hide" id="notificaciones">
+            <div class="row">
+                <div class="input-field col m6 s12">
+                    <select id="participantes">
+                        <option value="1">1 participante (usted)</option>
+                        <option value="2">2 participantes (usted y un coautor)</option>
+                        <option value="3">3 participantes (usted y dos coautores)</option>
+                        <option value="4">4 participantes (usted y tres coautores)</option>
+                        <option value="5">5 participantes (usted y cuatro coautores)</option>
+                    </select>
+                </div>
+                <div class="col m6 s12">
+                    <div class="card-panel z-depth-5 red darken-4 white-text hide" id="notificaciones">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row" id="expandParticipantes" >
-            <div class="col m6 s12 form-part" id="form-participantes">
-                <form class="card-panel grey lighten-4">
-                    <div class="search">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">picture_in_picture</i>
-                                <label style="margin-top:-5px;margin-bottom: 5px;">Tipo de documento</label>
-                                <div>
-                                    <p class="div-search-tipo-doc" style="margin-top: 25px;" name>
+            <div class="row" id="expandParticipantes" >
+                <div class="col m6 s12 form-part" id="form-participantes">
+                    <form class="card-panel grey lighten-4">
+                        <h6>Buscar participante</h6>
+                        <div class="search">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">picture_in_picture</i>
+                                    <label style="margin-top:-5px;margin-bottom: 5px;">Tipo de documento</label>
+                                    <div>
+                                        <p class="div-search-tipo-doc" style="margin-top: 25px;" name>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="search-docnum" type="number" class="validate">
+                                    <label for="search-docnum">Número de documento</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <button class="waves-effect waves-light btn-large buscar-part" type="button" name="guardar" data-num="">
+                                    Buscar participante
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="hide main-form">
+                            <h5>Participante 1</h5>
+
+                            <div class="row">
+                                <div class="input-field col l4 m12">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input id="nombre" type="text" class="validate" name="nombre">
+                                    <label for="nombre">Nombre</label>
+                                </div>
+                                <div class="input-field col l4 m6 s12">
+                                    <input id="paterno" type="text" class="validate" name="apellido-paterno">
+                                    <label for="paterno">A. Paterno</label>
+                                </div>
+                                <div class="input-field col l4 m6 s12">
+                                    <input id="materno" type="text" class="validate" name="apellido-materno">
+                                    <label for="materno">A. Materno</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s7">
+                                    <i class="material-icons prefix">picture_in_picture</i>
+                                    <label style="margin-top:-5px;margin-bottom: 5px;">Documento</label>
+                                    <p class="div-tipo-doc" style="margin-top: 25px;" name>
                                     </p>
+                                </div>
+
+                                <div class="input-field col s5">
+                                    <input id="docnum" type="number" class="validate" name="numero-documento">
+                                    <label for="docnum"># de documento</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s7">
+                                    <i class="material-icons prefix">business</i>
+                                    <input id="institucion" type="text" class="validate" name="institucion">
+                                    <label for="institucion">Institución</label>
+                                </div>
+                                <div class="input-field col s5">
+                                    <select name="pais" class="paises" id="pais">
+                                        <option value="none" disabled selected>Elija su país</option>
+                                        <!-- ListarPais(); -->
+                                    </select>
+                                    <label>País</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s7">
+                                    <i class="material-icons prefix">email</i>
+                                    <input id="email" type="email" class="validate" name="email">
+                                    <label for="email" data-error="email no válido" data-success="válido">Email</label>
+                                </div>
+                                <div class="input-field col s5">
+                                    <i class="material-icons prefix">phone</i>
+                                    <input id="telefono" type="number" class="validate" name="telefono">
+                                    <label for="telefono">Teléfono</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col s8 div-tipo-participante">
+                                    <h6>Esta persona es...</h6>
+                                    <div class="col m6">
+                                        <p>
+                                            <input type="checkbox" class="filled-in" id="tipo-participante" name="tipo-participante" value="2" />
+                                            <label for="tipo-participante">Expositor</label>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="search-docnum" type="number" class="validate">
-                                <label for="search-docnum">Número de documento</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <button class="waves-effect waves-light btn-large buscar-part" type="button" name="guardar" data-num="">
-                                Buscar participante
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="hide main-form">
-                        <h5>Participante 1</h5>
-
-                        <div class="row">
-                            <div class="input-field col l4 m12">
-                                <i class="material-icons prefix">account_circle</i>
-                                <input id="nombre" type="text" class="validate" name="nombre">
-                                <label for="nombre">Nombre</label>
-                            </div>
-                            <div class="input-field col l4 m6 s12">
-                                <input id="paterno" type="text" class="validate" name="apellido-paterno">
-                                <label for="paterno">A. Paterno</label>
-                            </div>
-                            <div class="input-field col l4 m6 s12">
-                                <input id="materno" type="text" class="validate" name="apellido-materno">
-                                <label for="materno">A. Materno</label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="input-field col s7">
-                                <i class="material-icons prefix">picture_in_picture</i>
-                                <label style="margin-top:-5px;margin-bottom: 5px;">Documento</label>
-                                <p class="div-tipo-doc" style="margin-top: 25px;" name>
-                                </p>
-                            </div>
-
-                            <div class="input-field col s5">
-                                <input id="docnum" type="number" class="validate" name="numero-documento">
-                                <label for="docnum"># de documento</label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="input-field col s7">
-                                <i class="material-icons prefix">business</i>
-                                <input id="institucion" type="text" class="validate" name="institucion">
-                                <label for="institucion">Institución</label>
-                            </div>
-                            <div class="input-field col s5">
-                                <select name="pais" class="paises" id="pais">
-                                    <option value="none" disabled selected>Elija su país</option>
-                                    <!-- ListarPais(); -->
-                                </select>
-                                <label>País</label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="input-field col s7">
-                                <i class="material-icons prefix">email</i>
-                                <input id="email" type="email" class="validate" name="email">
-                                <label for="email" data-error="email no válido" data-success="válido">Email</label>
-                            </div>
-                            <div class="input-field col s5">
-                                <i class="material-icons prefix">phone</i>
-                                <input id="telefono" type="number" class="validate" name="telefono">
-                                <label for="telefono">Teléfono</label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col s8 div-tipo-participante">
-                                <h6>Esta persona es...</h6>
-                                <div class="col m6">
-                                    <p>
-                                        <input type="checkbox" class="filled-in" id="tipo-participante" name="tipo-participante" value="2" />
-                                        <label for="tipo-participante">Expositor</label>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>                
+                    </form>                
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col s12">
-                <button class="waves-effect waves-light btn-large hide" type="submit" name="guardar" id="guardar-participantes">
-                    <i class="material-icons left">save</i>
-                    Guardar participantes
-                </button>
+            <div class="row">
+                <div class="col s12">
+                    <button class="waves-effect waves-light btn-large hide" type="submit" name="guardar" id="guardar-participantes">
+                        <i class="material-icons left">save</i>
+                        Guardar participantes
+                    </button>
+                </div>
             </div>
-        </div>
     </div>
 
     <div class="divider"></div>
@@ -241,8 +247,6 @@
     var aux = $('#form-participantes'); 
     var participanteForm = aux.clone();
     aux.find('h5').text('Coordinador');
-    aux.find('.div-tipo-participante').addClass('hide');
-    aux.find('.div-tipo-participante').find('input').val('1').attr('checked', 'checked');
 
     function addAttrSuffixToInput(suffix, form, element, attr){
         var elements = form.find(element);
@@ -438,6 +442,17 @@
         }
     }
 
+    function onChangeModalidades(){
+        if ($('#modalidades').val() == 16 || $('#modalidades').val() == 17){
+            $('#enviar-datos-propuesta').attr('disabled', true);
+            $('#foto-video-notif').removeClass('hide');
+        }
+        else{
+            $('#enviar-datos-propuesta').attr('disabled', false);
+            $('#foto-video-notif').addClass('hide');
+        }
+    }
+
     function showErrorMessage(msg, id = '#notificaciones'){
         var notif = $(id);
         notif.text(msg);
@@ -469,6 +484,7 @@
 
     $('#tematica').change(onChangeTematica);
     $('#participantes').change(onChangeParticipantes);
+    $('#modalidades').change(onChangeModalidades);
     $('#participantes').material_select();
 </script>
 

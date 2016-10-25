@@ -4,7 +4,7 @@ $file = fopen("configura.txt", "r");
 $Dir ="";
 while(!feof($file)) { $Dir = fgets($file);} fclose($file);
 
-
+$idPropuesta = $_POST["id-propuesta"];
 $tipoDoc = $_POST["tipo-doc"];
 $numDoc = $_POST["numero-documento"];
 $nombre = $_POST["nombre"];
@@ -16,7 +16,9 @@ $institucion = $_POST["institucion"];
 $pais = $_POST["pais"];
 
 $servicio = $Dir;
-$parametros= array('ID_TIPO_DOCUMENTO' => "28",
+$parametros= array('ID_PROPUESTA_REGISTRO' => $idPropuesta,
+                   'ID_PARTICIPANTE' => "0",
+                   'ID_TIPO_DOCUMENTO' => $tipoDoc,
                    'ID_PAIS' => $pais,
                    'ID_GRADO_INSTRUCCION' => "2",
                    'NU_DOCUMENTO' => $numDoc,
@@ -29,7 +31,7 @@ $parametros= array('ID_TIPO_DOCUMENTO' => "28",
                    'RPTA'    => "60",
                    'MENS'    => "1");
 $client = new SoapClient($servicio, []);
-$result = $client->RegistrarParticipante($parametros);
+$result = $client->RegistrarParticipantePropuesta($parametros);
 
 $outp = json_encode($result);
 

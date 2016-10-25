@@ -1,3 +1,5 @@
+var idPropuesta = 0;
+
 function validarPropuesta(propuesta){
 	for (var prop in propuesta){
 		if( propuesta.hasOwnProperty( prop ) ) {
@@ -7,9 +9,11 @@ function validarPropuesta(propuesta){
 			}
 		} 
 	}
+	return true;
 }
 
 function enviarPropuesta(){
+	var button = $(this);
 	var propuesta = {
 		modalidad: $('#modalidades').val(),
 		tematica: $('#tematica').val(),
@@ -23,6 +27,30 @@ function enviarPropuesta(){
 	} 
 
 	var isValid = validarPropuesta(propuesta);
+	propuesta['otra-tematica'] = '';
+
+	if (isValid) {
+		jQuery(function($) {
+	        $.ajax({
+				type: 'POST',
+				url: 'WS/RegistrarPropuesta.php',
+				dataType: 'text',
+				data: propuesta,
+				success: function(data) {
+					var res = JSON.parse(data);
+					idPropuesta = res.RPTA;
+
+					var paso2 = $('#paso2');
+					paso2.removeClass('hide');
+					button.remove();
+					$('html, body').animate({
+				        scrollTop: paso2.offset().top
+				    }, 1000);
+					console.log(data);
+				}
+        	});
+	    });
+	}
 	console.log(propuesta);
 }
 
