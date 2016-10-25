@@ -5,22 +5,31 @@ $Dir ="";
 while(!feof($file)) { $Dir = fgets($file);} fclose($file);
 
 
-$tipoDoc = $_POST["tipo-doc"];
-$numDoc = $_POST["numero-documento"];
-$nombre = $_POST["nombre"];
-$apMat = $_POST["apellido-materno"];
-$apPat = $_POST["apellido-paterno"];
-$email = $_POST["email"];
-$telf = $_POST["telefono"];
-$institucion = $_POST["institucion"];
-$pais = $_POST["pais"];
+$titulo = $_POST["titulo"];
+$modalidad = $_POST["modalidad"];
+$lineaTematica = $_POST["numero-documento"];
+$nivelEducativo = $_POST["nombre"];
+$otro = $_POST["apellido-materno"];
+
 
 $servicio = $Dir;
-$parametros= array('RPTA' => '10');
+$parametros= array('TITULO_PROP' => $titulo,
+	'TX_DESCRIPCION_FOTO_VIDEO' => '',
+	'TX_LUGAR_TOMA_FOTO' => '',
+	'FH_FECHA_TOMA_FOTO' => '',
+	'TX_URL_VIDEO' => '',
+	'GRU_MODALIDAD' => $modalidad,
+	'GRU_LINEA_TEMATICA' => $lineaTematica,
+	'GRU_NIVEL_EDUCATIVO' => $nivelEducativo,
+	'GRU_CATEGORIA_FOTO' => '',
+	'GRU_CATEGORIA_VIDEO' => '',
+	'LINEA_TEMATICA_OTRO' => $otro,
+	'RPTA' => '10',
+	'MENS' => '');
 
 $client = new SoapClient($servicio, []);
 $result = $client->RegistrarPropuesta($parametros);
-$outp = json_encode($result->RegistrarPropuestaResponse);
+$outp = json_encode($result);
 echo $outp;	
 
 ?>
