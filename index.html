@@ -249,7 +249,7 @@
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 <!-- Compiled and minified JavaScript -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
 <script>
     var cantParticipantes = 1;
@@ -490,14 +490,14 @@
     $('iframe').load( function() {
         var contents = $('#ifr').contents();
         contents.find("head")
-        .append('<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link rel="stylesheet" href="../propuestas/css/materialize.css">');
+        .append('<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link rel="stylesheet" href="../propuestas/css/materialize.css">');
 
         var div = contents.find('#divPropuestas');
         div.empty();
         div.load('/form/form/replaceForm.html');
 
         contents.find("body")
-        .append('<script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></scr' + 'ipt><script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></scri' +'pt>');
+        .append('<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></scr' + 'ipt><script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></scri' +'pt>');
     });
     function cargarPlantillas(){
         var padre = $('#plantillas');
