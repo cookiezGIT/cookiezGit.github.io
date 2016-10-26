@@ -105,8 +105,8 @@
             <div class="row" id="expandParticipantes" >
                 <div class="col m6 s12 form-part" id="form-participantes">
                     <form class="card-panel grey lighten-4">
-                        <h6>Buscar participante</h6>
                         <div class="search">
+                            <h6>Buscar participante</h6>
                             <div class="row">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">picture_in_picture</i>
@@ -214,23 +214,27 @@
                     </button>
                 </div>
             </div>
-    </div>
-
-    <div class="divider"></div>
-    <h5>Paso 3 - Guardar archivos</h5>
-
-    <div class="section" id="expand"> 
-        <div class="row">
-            <iframe id="ifr" name="ifr"  src="http://172.16.41.182/WebUCM/Default.aspx" width ="100%" height="175px" frameborder="0" style="overflow-y:scroll;overflow-x:hidden;"  ></iframe>
         </div>
     </div>
-    <div class="section">
-        <div class="row">
-            <div class="col s12">
-                <button class="waves-effect waves-light btn-large" type="submit" name="guardar" id="enviar-propuesta">
-                    <i class="material-icons left">send</i>
-                    Finalizar
-                </button>
+
+    <div id="paso3" class="">
+        <div class="divider"></div>
+        <h5>Paso 3 - Guardar archivos</h5>
+
+        <div class="section" id="expand"> 
+            <div class="row">
+                <div class="card-panel z-depth-2 red darken-4 white-text" id="archivos-notificaciones"></div>
+                <iframe id="ifr" name="ifr"  src="http://172.16.41.182/WebUCM/Default.aspx" width ="100%" height="175px" frameborder="0" style="overflow-y:scroll;overflow-x:hidden;"  ></iframe>
+            </div>
+        </div>
+        <div class="section">
+            <div class="row">
+                <div class="col s12">
+                    <button class="waves-effect waves-light btn-large" type="submit" name="guardar" id="finalizar">
+                        <i class="material-icons left">send</i>
+                        Finalizar
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -490,6 +494,7 @@
 
 <script type="text/javascript" src="guardarParticipantes.js"></script>
 <script type="text/javascript" src="envioPropuesta.js"></script>
+<script type="text/javascript" src="guardarArchivo.js"></script>
 
 </body>
 </html>

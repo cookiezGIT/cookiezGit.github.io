@@ -7,7 +7,8 @@ $servicio = $Dir;
 
 $tipoDoc = $_POST["tipo-doc"];
 $numDoc = $_POST["numero-documento"];
-$parametros= array('ID_TIPO_DOCUMENTO' => "28",
+
+$parametros= array('ID_TIPO_DOCUMENTO' => $tipoDoc,
                    'NU_DOCUMENTO' => $numDoc);
 
 $client = new SoapClient($servicio, []);

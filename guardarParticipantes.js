@@ -16,12 +16,18 @@ function buscarPartClick(){
 		showErrorMessage('Debe completar los datos para poder realizar la busqueda.');
 	}
 
+	var busqueda = {
+		'tipo-doc': tipo, 
+		'numero-documento': numDoc
+	};
+	console.log(busqueda);
+
 	jQuery(function($) {
         $.ajax({
             type: 'POST',
             url: 'WS/FiltrarParticipanteDocumento.php',
             dataType: 'text',
-            data: {'tipo-doc': tipo, 'numero-documento': numDoc},
+            data: busqueda,
             success: function(data) {
             		try{
                    		JSON.parse(data);
@@ -158,7 +164,6 @@ function guardarParticipantes(){
 	            	console.log(data);
             	}
         });
-	    console.log(participante);
 
 		partForm = $('#'.concat(id, '-', i));
 		i++;
@@ -166,6 +171,9 @@ function guardarParticipantes(){
 	}while(partForm.length > 0);
 
 	//$(this).remove();
+	$('#paso3').removeClass('hide');
+	$("html, body").animate({ scrollTop: $(document).height() }, 1000);
+
 	var select = $('#participantes');
 	select.attr('disabled', true);
 	select.material_select();

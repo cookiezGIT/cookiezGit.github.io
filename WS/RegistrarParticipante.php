@@ -14,10 +14,12 @@ $email = $_POST["email"];
 $telf = $_POST["telefono"];
 $institucion = $_POST["institucion"];
 $pais = $_POST["pais"];
+$tipoParticipante= $_POST["tipo-participante"];
 
 $servicio = $Dir;
 $parametros= array('ID_PROPUESTA_REGISTRO' => $idPropuesta,
                    'ID_PARTICIPANTE' => "0",
+                   'GRUPO_TIPO_PARTICIPANTE' => $tipoParticipante,
                    'ID_TIPO_DOCUMENTO' => $tipoDoc,
                    'ID_PAIS' => $pais,
                    'ID_GRADO_INSTRUCCION' => "2",
