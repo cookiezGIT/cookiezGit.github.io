@@ -11,7 +11,7 @@
 
 <body>
 <!--Import Google Icon Font-->
-<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- Compiled and minified CSS -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css"> -->
 <link rel="stylesheet" href="/relme/css/materialize.css">
@@ -315,7 +315,7 @@
                     var pre = JSON.parse(data);
                     var sel = form.find('.paises');
 
-                    for(i=0;i<pre.length;i++){
+                    for(var i=0;i<pre.length;i++){
                         sel.append('<option value="'+pre[i].ID_PAIS+'">'+pre[i].NO_PAIS+'</option>');
                     }
                     sel.material_select();
@@ -324,7 +324,11 @@
         });
     }
 
-    function ListarTipoDocumento(form, suffix = ''){
+    function ListarTipoDocumento(form, suffix){
+        if (suffix === undefined) {
+            suffix = '';
+        }
+
         jQuery(function($) {
             $.ajax({
                 type: 'POST',
@@ -338,10 +342,10 @@
                     var pre = JSON.parse(data);
                     var selSearch = form.find('.div-search-tipo-doc');
                     var sel = form.find('.div-tipo-doc');
-                    for(i=0;i<pre.length;i++){
+                    for(var i=0;i<pre.length;i++){
                         selSearch.append('<input class="with-gap" name="search-group1' + suffix + '" type="radio" id="search-doc' + (i+1) + suffix + '" value="' + pre[i].ID_TIPO_DOCUMENTO + '" /><label for="search-doc' + (i+1) + suffix + '">' + pre[i].NO_TIPO_DOCUMENTO + '</label>');
 
-                        sel.append('<input class="with-gap" name="tipo-doc" type="radio" id="doc' + (i+1) + suffix + '" value="' + pre[i].ID_TIPO_DOCUMENTO + '" /><label for="doc' + (i+1) + suffix + '">' + pre[i].NO_TIPO_DOCUMENTO + '</label>')
+                        sel.append('<input class="with-gap" name="tipo-doc" type="radio" id="doc' + (i+1) + suffix + '" value="' + pre[i].ID_TIPO_DOCUMENTO + '" /><label for="doc' + (i+1) + suffix + '">' + pre[i].NO_TIPO_DOCUMENTO + '</label>');
                     }
                 }
             });
@@ -361,7 +365,7 @@
                     }
                     var pre = JSON.parse(data);
                     var sel = $('#tematica');
-                    for(i=0;i<pre.length;i++){
+                    for(var i=0;i<pre.length;i++){
                         sel.append('<option value="'+pre[i].ID_LINEA_TEMATICA+'">'+pre[i].NO_LINEA_TEMATICA+'</option>');
                     }
                     sel.material_select();
@@ -383,7 +387,7 @@
                     }
                     var pre = JSON.parse(data);
                     var sel = $('#nivel-educativo');
-                    for(i=0;i<pre.length;i++){
+                    for(var i=0;i<pre.length;i++){
                         sel.append('<option value="'+pre[i].ID_NIVEL_EDUCATIVO+'">'+pre[i].TX_NIVEL_EDUCATIVO+'</option>');
                     }
                     sel.material_select();
@@ -405,7 +409,7 @@
                     }
                     var pre = JSON.parse(data);
                     var sel = $('#modalidades');
-                    for(i=0;i<pre.length;i++){
+                    for(var i=0;i<pre.length;i++){
                         sel.append('<option value="'+pre[i].ID_MODALIDAD+'" data-DUIS="'+pre[i].ID_PAIS+'">'+pre[i].NO_MODALIDAD+'</option>');
                     }
                     sel.material_select();
@@ -429,7 +433,7 @@
                     var pre = JSON.parse(data);
                     console.log(pre);
                     var sel = $('#modalidades');
-                    for(i=0;i<pre.length;i++){
+                    for(var i=0;i<pre.length;i++){
                         sel.append('<p><input class="with-gap" name="group1" type="radio" id="p'+pre[i].ID_MODALIDAD+'" data-DUIS="'+pre[i].ID_MODALIDAD+'"/>\
                                 <label for="p'+pre[i].ID_MODALIDAD+'">'+pre[i].NO_MODALIDAD+'</label></p>');
                     }
@@ -458,7 +462,9 @@
         }
     }
 
-    function showErrorMessage(msg, id = '#notificaciones'){
+    function showErrorMessage(msg, id){
+        if (id === undefined) id = '#notificaciones';
+
         var notif = $(id);
         notif.text(msg);
         $('html, body').animate({ scrollTop: notif.offset().top-2 }, 'slow');
