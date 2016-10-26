@@ -243,12 +243,7 @@
         </div>
     </div>
 </div>
-<div class="container hide" id="exito">
- <h3>Propuesta enviada</h3>
-        <div class="divider"></div>
-        <h5>Su propuesta ha sido enviada con éxito. En breve el Coordinador recibirá un correo de confirmación. </h5>
-        <p>Relme31 agradece su interés y su participación</p>
-</div>
+
 
 
 <!--Import jQuery before materialize.js-->
@@ -488,7 +483,7 @@
     $('iframe').load( function() {
         var contents = $('#ifr').contents();
         contents.find("head")
-        .append('<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link rel="stylesheet" href="css/materialize.css">');
+        .append('<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link rel="stylesheet" href="../propuestas/css/materialize.css">');
 
         var div = contents.find('#divPropuestas');
         div.empty();
@@ -496,7 +491,6 @@
 
         contents.find("body")
         .append('<script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></scr' + 'ipt><script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></scri' +'pt>');
-        contents.Materialize.updateTextFields();
     });
     function cargarPlantillas(){
         var padre = $('#plantillas');
@@ -565,6 +559,13 @@
 <script type="text/javascript" src="guardarParticipantes.js"></script>
 <script type="text/javascript" src="envioPropuesta.js"></script>
 <script type="text/javascript" src="guardarArchivo.js"></script>
+
+<div class="container hide" id="exito">
+ <h3>Propuesta enviada</h3>
+        <div class="divider"></div>
+        <h5>Su propuesta ha sido enviada con éxito. En breve el Coordinador recibirá un correo de confirmación. </h5>
+        <p>Relme31 agradece su interés y su participación</p>
+</div>
 
 </body>
 </html>
