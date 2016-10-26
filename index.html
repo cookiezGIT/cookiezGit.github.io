@@ -16,7 +16,7 @@
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css"> -->
 <link rel="stylesheet" href="css/materialize.css">
 
-<div class="container">
+<div class="container" id="contenedor">
     <h3>Registro de Propuesta</h3>
     <div id="paso1">
         <div class="divider"></div>
@@ -242,6 +242,12 @@
             </div>
         </div>
     </div>
+</div>
+<div class="container hide" id="exito">
+ <h3>Propuesta enviada</h3>
+        <div class="divider"></div>
+        <h5>Su propuesta ha sido enviada con éxito. En breve el Coordinador recibirá un correo de confirmación. </h5>
+        <p>Relme31 agradece su interés y su participación</p>
 </div>
 
 
@@ -482,7 +488,7 @@
     $('iframe').load( function() {
         var contents = $('#ifr').contents();
         contents.find("head")
-        .append('<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">');
+        .append('<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link rel="stylesheet" href="css/materialize.css">');
 
         var div = contents.find('#divPropuestas');
         div.empty();
@@ -490,6 +496,7 @@
 
         contents.find("body")
         .append('<script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></scr' + 'ipt><script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></scri' +'pt>');
+        contents.Materialize.updateTextFields();
     });
     function cargarPlantillas(){
         var padre = $('#plantillas');
@@ -497,53 +504,46 @@
         var subtitulo = $('#modalidades option:selected').text();
         var sub = '<p style="font-weight: 500; font-size:16px">Plantillas para '+subtitulo+'</p>';
         padre.append(sub);
-        var icon = '<i class="material-icons" style="margin-right:20px;">perm_media</i>'
+        var icon = '<i class="material-icons" style="margin-right:20px;">perm_media</i>';
         var texto = {
             a: 'Plantilla del resumen de la propuesta',
             b: 'Plantilla del resumen ejecutivo (100 palabras)'
         };
-        var url={};
+        var a='';
+        var b='';
         switch(modalidad){
-            case 10:
-                var url={
-                    a: 'http://relme31.ulima.edu.pe/Docs/RI-Plantilla-ResumenEvaluar.docx',
-                    b: 'http://relme31.ulima.edu.pe/Docs/RI-Plantilla-ResumenEjecutivo.docx'
-                };
+            case "10":
+                a= 'http://relme31.ulima.edu.pe/Docs/RI-Plantilla-ResumenEvaluar.docx';
+                b= 'http://relme31.ulima.edu.pe/Docs/RI-Plantilla-ResumenEjecutivo.docx';
                 break;
-            case 11:
-                var url={
-                    a: 'http://relme31.ulima.edu.pe/Docs/CB-Plantilla-ResumenEvaluar.docx',
-                    b: 'http://relme31.ulima.edu.pe/Docs/CB-Plantilla-ResumenEjecutivo.docx'
-                };
+
+            case "11":
+                 a= 'http://relme31.ulima.edu.pe/Docs/CB-Plantilla-ResumenEvaluar.docx';
+                  b='http://relme31.ulima.edu.pe/Docs/CB-Plantilla-ResumenEjecutivo.docx';
+
                 break;
-            case 12:
-                var url={
-                    a: 'http://relme31.ulima.edu.pe/Docs/T-Plantilla-ResumenEvaluar.docx',
-                    b: 'http://relme31.ulima.edu.pe/Docs/T-Plantilla-ResumenEjecutivo.docx'
-                };
+            case "12":
+                 a= 'http://relme31.ulima.edu.pe/Docs/T-Plantilla-ResumenEvaluar.docx';
+                    b= 'http://relme31.ulima.edu.pe/Docs/T-Plantilla-ResumenEjecutivo.docx';
+
                 break;
-            case 13:
-                var url={
-                    a: 'http://relme31.ulima.edu.pe/Docs/GD-Plantilla-ResumenEvaluar.docx',
-                    b: 'http://relme31.ulima.edu.pe/Docs/GD-Plantilla-ResumenEjecutivo.docx'
-                };
+            case "13":
+                a= 'http://relme31.ulima.edu.pe/Docs/GD-Plantilla-ResumenEvaluar.docx';
+                 b= 'http://relme31.ulima.edu.pe/Docs/GD-Plantilla-ResumenEjecutivo.docx';
+
                 break;
-            case 14:
-                var url={
-                    a: 'http://relme31.ulima.edu.pe/Docs/C-Plantilla-ResumenEvaluar-Carteles.docx',
-                    b: 'http://relme31.ulima.edu.pe/Docs/C-Plantilla-ResumenEjecutivo_Carteles.docx'
-                };
+            case "14":
+              a= 'http://relme31.ulima.edu.pe/Docs/C-Plantilla-ResumenEvaluar-Carteles.docx';
+               b= 'http://relme31.ulima.edu.pe/Docs/C-Plantilla-ResumenEjecutivo_Carteles.docx';
                 break;
-            case 15:
-                var url={
-                    a: 'http://relme31.ulima.edu.pe/Docs/PMD-Plantilla-ResumenEvaluar.docx',
-                    b: 'http://relme31.ulima.edu.pe/Docs/PMD-Plantilla-ResumenEjecutivo.docx'
-                };
+            case "15":
+             a= 'http://relme31.ulima.edu.pe/Docs/PMD-Plantilla-ResumenEvaluar.docx';
+             b= 'http://relme31.ulima.edu.pe/Docs/PMD-Plantilla-ResumenEjecutivo.docx';
                 break;
         }
         //fin del switch
-        padre.append('<p>'+icon+'(DOC) <a href="'+url.a+'">'+texto.a+'</a></p>');
-        padre.append('<p>'+icon+'(DOC) <a href="'+url.b+'">'+texto.b+'</a></p>');
+        padre.append('<p>'+icon+'(DOC) <a href="'+a+'">'+texto.a+'</a></p>');
+        padre.append('<p>'+icon+'(DOC) <a href="'+b+'">'+texto.b+'</a></p>');
     }
 
 </script>
