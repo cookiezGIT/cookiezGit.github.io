@@ -14,9 +14,9 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- Compiled and minified CSS -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css"> -->
-<link rel="stylesheet" href="/relme/css/materialize.css">
+<link rel="stylesheet" href="css/materialize.css">
 
-<div class="container">
+<div class="container" id="contenedor">
     <h3>Registro de Propuesta</h3>
     <div id="paso1">
         <div class="divider"></div>
@@ -49,7 +49,7 @@
                     <label for="paterno">Indicar la otra temática</label>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="input-field col s12 m6" >
                     <select id="nivel-educativo">
@@ -62,7 +62,7 @@
             <div class="row">
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">assignment</i>
-                    <input id="titulo" type="text" class="validate">
+                    <input id="titulo" type="text" class="validate" length="100">
                     <label for="titulo"> Título de la propuesta</label>
                 </div>
             </div>
@@ -84,8 +84,8 @@
     <div id="paso2" class="hide">
         <div class="divider"></div>
         <div class="section">
-            <h5>Paso 2 - Guardar participantes</h5>
-            <p">Requerimos saber cuántas personas han participado en su proyecto para poder registrar a cada una de ellas.</p>
+            <h5>Paso 2 - Registrar participantes</h5>
+            <p>Requerimos saber cuántas personas han participado en su proyecto para poder registrar a cada una de ellas.</p>
 
             <div class="row">
                 <div class="input-field col m6 s12">
@@ -107,7 +107,7 @@
                 <div class="col m6 s12 form-part" id="form-participantes">
                     <form class="card-panel grey lighten-4">
                         <div class="search">
-                            <h6>Buscar participante</h6>
+                            <h5>Buscar participante</h5>
                             <div class="row">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">picture_in_picture</i>
@@ -204,7 +204,7 @@
                                 </div>
                             </div>
                         </div>
-                    </form>                
+                    </form>
                 </div>
             </div>
             <div class="row">
@@ -220,9 +220,12 @@
 
     <div id="paso3" class="hide">
         <div class="divider"></div>
-        <h5>Paso 3 - Guardar archivos</h5>
+        <h5>Paso 3 - Adjuntar archivos de la propuesta</h5>
+        <p>Cada modalidad tiene requerimientos y plantillas para las propuestas diferentes, por favor descargue y llene las plantillas aquí:</p>
+        <div id="plantillas">
 
-        <div class="section" id="expand"> 
+        </div>
+        <div class="section" id="expand">
             <div class="row">
                 <div class="card-panel z-depth-2 red darken-4 white-text hide" id="archivos-notificaciones"></div>
                 <iframe id="ifr" name="ifr"  src="http://172.16.41.182/WebUCM/Default.aspx" width ="100%" height="190px" frameborder="0" style="overflow-y:scroll;overflow-x:hidden;"  ></iframe>
@@ -233,7 +236,7 @@
                 <div class="col s12">
                     <button class="waves-effect waves-light btn-large" type="submit" name="guardar" id="finalizar">
                         <i class="material-icons left">send</i>
-                        Finalizar
+                        Finalizar y enviar
                     </button>
                 </div>
             </div>
@@ -242,14 +245,15 @@
 </div>
 
 
+
 <!--Import jQuery before materialize.js-->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 <!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
 <script>
     var cantParticipantes = 1;
-    var aux = $('#form-participantes'); 
+    var aux = $('#form-participantes');
     var participanteForm = aux.clone();
     aux.find('h5').text('Coordinador');
 
@@ -288,13 +292,19 @@
                 ListarPais(participanteForm);
                 ListarTipoDocumento(participanteForm, '-'.concat((i-1).toString()));
                 participanteForm = aux;
+
+                $('#search-docnum-'+(i-1)).keydown(function(e) {
+                    if(e.which == 13) {
+                        participanteForm.find('.buscar-part').click();
+                    }
+                 });                
             }
         }
         else if (val < cantParticipantes) {
             var forms = expandParticipantes.find('.form-part');
             for (var i = cantParticipantes-val; i > 0; i--) {
                 forms.get(forms.length-i).remove();
-            }            
+            }
         }
 
         cantParticipantes = val;
@@ -409,8 +419,9 @@
                     }
                     var pre = JSON.parse(data);
                     var sel = $('#modalidades');
+
                     for(var i=0;i<pre.length;i++){
-                        sel.append('<option value="'+pre[i].ID_MODALIDAD+'" data-DUIS="'+pre[i].ID_PAIS+'">'+pre[i].NO_MODALIDAD+'</option>');
+                        sel.append('<option value="'+pre[i].ID_MODALIDAD+'">'+pre[i].NO_MODALIDAD+'</option>');
                     }
                     sel.material_select();
                 }
@@ -479,15 +490,63 @@
     $('iframe').load( function() {
         var contents = $('#ifr').contents();
         contents.find("head")
-        .append('<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">');
+        .append('<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link rel="stylesheet" href="../propuestas/css/materialize.css">');
 
         var div = contents.find('#divPropuestas');
         div.empty();
         div.load('/form/form/replaceForm.html');
 
         contents.find("body")
-        .append('<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></scr' + 'ipt><script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></scri' +'pt>');
+        .append('<script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></scr' + 'ipt><script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></scri' +'pt>');
     });
+    function cargarPlantillas(){
+        var padre = $('#plantillas');
+        var modalidad = $('#modalidades').val();
+        var subtitulo = $('#modalidades option:selected').text();
+        var sub = '<p style="font-weight: 500; font-size:16px">Plantillas para '+subtitulo+'</p>';
+        padre.append(sub);
+        var icon = '<i class="material-icons" style="margin-right:20px;">perm_media</i>';
+        var texto = {
+            a: 'Plantilla del resumen de la propuesta',
+            b: 'Plantilla del resumen ejecutivo (100 palabras)'
+        };
+        var a='';
+        var b='';
+        switch(modalidad){
+            case "10":
+                a= 'http://relme31.ulima.edu.pe/Docs/RI-Plantilla-ResumenEvaluar.docx';
+                b= 'http://relme31.ulima.edu.pe/Docs/RI-Plantilla-ResumenEjecutivo.docx';
+                break;
+
+            case "11":
+                 a= 'http://relme31.ulima.edu.pe/Docs/CB-Plantilla-ResumenEvaluar.docx';
+                  b='http://relme31.ulima.edu.pe/Docs/CB-Plantilla-ResumenEjecutivo.docx';
+
+                break;
+            case "12":
+                 a= 'http://relme31.ulima.edu.pe/Docs/T-Plantilla-ResumenEvaluar.docx';
+                    b= 'http://relme31.ulima.edu.pe/Docs/T-Plantilla-ResumenEjecutivo.docx';
+
+                break;
+            case "13":
+                a= 'http://relme31.ulima.edu.pe/Docs/GD-Plantilla-ResumenEvaluar.docx';
+                 b= 'http://relme31.ulima.edu.pe/Docs/GD-Plantilla-ResumenEjecutivo.docx';
+
+                break;
+            case "14":
+              a= 'http://relme31.ulima.edu.pe/Docs/C-Plantilla-ResumenEvaluar-Carteles.docx';
+               b= 'http://relme31.ulima.edu.pe/Docs/C-Plantilla-ResumenEjecutivo_Carteles.docx';
+                break;
+            case "15":
+             a= 'http://relme31.ulima.edu.pe/Docs/PMD-Plantilla-ResumenEvaluar.docx';
+             b= 'http://relme31.ulima.edu.pe/Docs/PMD-Plantilla-ResumenEjecutivo.docx';
+                break;
+        }
+        //fin del switch
+        padre.append('<p>'+icon+'(DOC) <a href="'+a+'">'+texto.a+'</a></p>');
+        padre.append('<p>'+icon+'(DOC) <a href="'+b+'">'+texto.b+'</a></p>');
+    }
+
 </script>
 <script>
     ListarModalidad();
@@ -508,6 +567,12 @@
 <script type="text/javascript" src="envioPropuesta.js"></script>
 <script type="text/javascript" src="guardarArchivo.js"></script>
 
+<div class="container hide" id="exito">
+ <h3>Propuesta enviada</h3>
+        <div class="divider"></div>
+        <h5>Su propuesta ha sido enviada con éxito. En breve el Coordinador recibirá un correo de confirmación. </h5>
+        <p>Relme31 agradece su interés y su participación</p>
+</div>
+
 </body>
 </html>
-        

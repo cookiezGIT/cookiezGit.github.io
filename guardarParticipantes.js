@@ -17,10 +17,10 @@ function buscarPartClick(){
 	}
 
 	var busqueda = {
-		'tipo-doc': tipo, 
+		'tipo-doc': tipo,
 		'numero-documento': numDoc
 	};
-	console.log(busqueda);
+	//console.log(busqueda);
 
 	jQuery(function($) {
         $.ajax({
@@ -32,12 +32,12 @@ function buscarPartClick(){
             		try{
                    		JSON.parse(data);
                    		var pre = JSON.parse(data);
-                   		console.log(pre);
+                   		//console.log(pre);
                    		colocarDatosParticipante(pre, minus.concat(num));
                     } catch(err) {
-                        console.log('No se encontró al participante.')
+											colocarDocID(busqueda, minus.concat(num));
                     }
-            	
+
             }
         });
     });
@@ -71,7 +71,18 @@ function colocarDatosParticipante(participante, formSuffix){
 		Materialize.updateTextFields();
 	}
 }
-	
+
+function colocarDocID(busqueda, formSuffix){
+	var radioGroup = $('#form-participantes'.concat(formSuffix, ' ', 'input:radio[name="tipo-doc"]'));
+	$.each(radioGroup, function(i, val){
+		var radio = $(val);
+		if (radio.val() == busqueda['tipo-doc'])
+			radio.attr('checked', 'checked');
+	});
+	$('#docnum'.concat(formSuffix)).val(busqueda['numero-documento']);
+	Materialize.updateTextFields();
+}
+
 
 function validarParticipante(inputs, numeroParticipante){
 	var isRadioSelected = false;
@@ -161,7 +172,7 @@ function guardarParticipantes(){
 	            dataType: 'text',
 	            data: participante,
 	            success: function(data) {
-	            	console.log(data);
+	            	//console.log(data);
             	}
         });
 
@@ -178,7 +189,7 @@ function guardarParticipantes(){
 	select.attr('disabled', true);
 	select.material_select();
 
-	console.log(participantes);
+	//console.log(participantes);
 }
 
 function mostrarBotonGuardarParticipantes(){
@@ -190,6 +201,12 @@ function mostrarBotonGuardarParticipantes(){
     	$('#guardar-participantes').addClass('hide');
     }
 }
+
+$('#search-docnum').keydown(function(e) {
+    if(e.which == 13) {
+        $('#form-participantes').find('.buscar-part').click();
+    }
+ });
 
 $('#guardar-participantes').click(guardarParticipantes);
 
