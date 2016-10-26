@@ -4,10 +4,10 @@ function validarPropuesta(propuesta){
 	for (var prop in propuesta){
 		if( propuesta.hasOwnProperty( prop ) ) {
 			if (propuesta[prop] === null || propuesta[prop] === undefined || propuesta[prop] == '') {
-				showErrorMessage('Debe ingresar un(a) '.concat(prop, '.'), '#datos-notificaciones');		
-				return false;	
+				showErrorMessage('Debe ingresar un(a) '.concat(prop, '.'), '#datos-notificaciones');
+				return false;
 			}
-		} 
+		}
 	}
 	return true;
 }
@@ -24,7 +24,7 @@ function enviarPropuesta(){
 	var otra = $('#otra-tematica').val();
 	if (propuesta.tematica == 24){
 		propuesta['otra-tematica'] = otra;
-	} 
+	}
 
 	var isValid = validarPropuesta(propuesta);
 	propuesta['otra-tematica'] = '';
@@ -46,12 +46,21 @@ function enviarPropuesta(){
 					$('html, body').animate({
 				        scrollTop: paso2.offset().top
 				    }, 1000);
-					console.log(data);
+					//console.log(data);
+					//deshabilitar selects y titulo
+					$('#modalidades').attr('disabled','disabled');
+					$('#modalidades').material_select();
+					$('#tematica').attr('disabled','disabled');
+					$('#tematica').material_select();
+					$('#nivel-educativo').attr('disabled','disabled');
+					$('#nivel-educativo').material_select();
+					$('#titulo').attr('disabled','disabled');
+					cargarPlantillas();
 				}
         	});
 	    });
 	}
-	console.log(propuesta);
+	//console.log(propuesta);
 }
 
 $('#enviar-datos-propuesta').click(enviarPropuesta);
