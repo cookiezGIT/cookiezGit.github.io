@@ -223,8 +223,8 @@
 
         <div class="section" id="expand"> 
             <div class="row">
-                <div class="card-panel z-depth-2 red darken-4 white-text" id="archivos-notificaciones"></div>
-                <iframe id="ifr" name="ifr"  src="http://172.16.41.182/WebUCM/Default.aspx" width ="100%" height="175px" frameborder="0" style="overflow-y:scroll;overflow-x:hidden;"  ></iframe>
+                <div class="card-panel z-depth-2 red darken-4 white-text hide" id="archivos-notificaciones"></div>
+                <iframe id="ifr" name="ifr"  src="http://172.16.41.182/WebUCM/Default.aspx" width ="100%" height="190px" frameborder="0" style="overflow-y:scroll;overflow-x:hidden;"  ></iframe>
             </div>
         </div>
         <div class="section">
@@ -470,11 +470,16 @@
     }
 
     $('iframe').load( function() {
-    $('iframe').contents().find("head")
-        .append('<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">"');
-        var div = $('#ifr').contents().find('#divPropuestas');
+        var contents = $('#ifr').contents();
+        contents.find("head")
+        .append('<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">');
+
+        var div = contents.find('#divPropuestas');
         div.empty();
-        div.load('http://172.16.41.182/formulario/replaceForm.html');
+        div.load('/form/form/replaceForm.html');
+
+        contents.find("body")
+        .append('<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></scr' + 'ipt><script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></scri' +'pt>');
     });
 </script>
 <script>
