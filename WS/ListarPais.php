@@ -1,16 +1,15 @@
 <?php
 
-$file = fopen("configura.txt", "r");
-$Dir ="";
-while(!feof($file)) { $Dir = fgets($file);} fclose($file);
-
-
-$servicio = $Dir; 
-$parametros= [];
-$client = new SoapClient($servicio, $parametros);
-$result = $client->ListarPais($parametros);
-
-$outp = json_encode($result->ListarPaisResult->BE_Pais);
+$outp = "[
+	{
+		'ID_PAIS': 50,
+		'NO_PAIS': 'Peru'
+	},
+	{
+		'ID_PAIS': 46,
+		'NO_PAIS': 'Chile'
+	}
+]"
 
 echo $outp;
 
