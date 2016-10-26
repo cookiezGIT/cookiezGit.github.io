@@ -8,7 +8,7 @@ function buscarPartClick(){
 		minus = "-"
 
 	var particForm = $('#form-participantes'.concat(minus, num));
-	var tipo = particForm.find('input[name="search-group1"]:checked').val();
+	var tipo = particForm.find('input[name="search-group1'.concat(minus, num, '"]:checked')).val();
 
 	var numDoc = $('#search-docnum'.concat(minus, num)).val();
 
@@ -20,7 +20,7 @@ function buscarPartClick(){
 		'tipo-doc': tipo,
 		'numero-documento': numDoc
 	};
-	//console.log(busqueda);
+	console.log(busqueda);
 
 	jQuery(function($) {
         $.ajax({
@@ -184,7 +184,6 @@ function guardarParticipantes(){
 	//$(this).remove();
 	$('#paso3').removeClass('hide');
 	$("html, body").animate({ scrollTop: $(document).height() }, 1000);
-	cambiarEstilosAdjuntos();
 
 	var select = $('#participantes');
 	select.attr('disabled', true);
