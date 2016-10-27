@@ -117,13 +117,23 @@ function guardarParticipantes(){
 	var i = 0;
 	var id = 'form-participantes';
 	var partForm = $('#'.concat(id));
-	do{
-		var participante = {};
 
+	do{
 		var inputs = partForm.find('input, select');
 
 		if (!validarParticipante(inputs, i))
 			return;
+
+		partForm = $('#'.concat(id, '-', i));
+		i++;
+	}while(partForm.length > 0);
+
+	i = 0;
+	partForm = $('#'.concat(id));
+	do{
+		var participante = {};
+
+		var inputs = partForm.find('input, select');
 
 		for (var j = 0; j < inputs.length; j++) {
 			var elem = $(inputs.get(j));
@@ -181,7 +191,7 @@ function guardarParticipantes(){
     });
 	}while(partForm.length > 0);
 
-	//$(this).remove();
+	$(this).remove();
 	$('#paso3').removeClass('hide');
 	$("html, body").animate({ scrollTop: $(document).height() }, 1000);
 
