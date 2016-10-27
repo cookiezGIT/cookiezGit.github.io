@@ -197,7 +197,7 @@ function onResults(results, allInputs){
 	for (var prop in results){
 		if (results.hasOwnProperty(prop)) {
 			if (results[prop].RPTA == 0) {
-				showErrorMessage(results[prop].MENS);
+				showErrorMessage('Registro '.concat(prop, ': ', results[prop].MENS));
 				return;
 			}				
 		}
@@ -213,24 +213,29 @@ function onResults(results, allInputs){
 
 }
 
+function ajaxForPart(participante, results, i){
+	var j = i;
+	return $.ajax({
+        type: 'POST',
+        url: 'WS/RegistrarParticipante.php',
+        dataType: 'text',
+        data: participante,
+        success: function(data) {
+        	results[j] = JSON.parse(data);
+    	}
+	});
+}
+
 function enviarParticipantes(participantes, allInputs){
 	var ajaxArray = [];
 	var results = {};
 
 	for (var i = 0; i < participantes.length; i++) {
-		var async = $.ajax({
-            type: 'POST',
-            url: 'WS/RegistrarParticipante.php',
-            dataType: 'text',
-            data: participantes[i],
-            success: function(data) {
-            	results[i.toString()] = JSON.parse(data);
-        	}
-    	});
+		var async = ajaxForPart(participantes[i], results, i);
 		ajaxArray.push(async);
 	}
 
-	$.when.apply(undefined, ajaxArray).then(function(){
+	$.when.apply(undefined, ajaxArray).done(function(){
 		onResults(results, allInputs);
 	});
 }

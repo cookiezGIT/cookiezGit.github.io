@@ -133,7 +133,7 @@
                         </div>
 
                         <div class="hide main-form">
-                            <h5>Participante 1</h5>
+                            <h5>Coautor 1</h5>
 
                             <div class="row">
                                 <div class="input-field col l4 m12">
@@ -284,7 +284,7 @@
                 addAttrSuffixToInput(i-1, participanteForm, 'select', 'id');
 
                 var num = parseFloat(i) + 1;
-                var h5 = participanteForm.find('h5').text("Participante ".concat(num));
+                var h5 = participanteForm.find('h5').text("Coautor ".concat(num));
 
                 participanteForm.find('.buscar-part').data('num', i-1);
                 participanteForm.find('.buscar-part').click(buscarPartClick);
