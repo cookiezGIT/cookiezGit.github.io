@@ -20,7 +20,7 @@ function enviarPropuesta(){
 		tematica: '#tematica',
 		nivelEducativo: '#nivel-educativo',
 		titulo: '#titulo'
-	}
+	};
 
 	var propuesta = {
 		modalidad: $('#modalidades').val(),
