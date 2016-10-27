@@ -13,7 +13,8 @@ function buscarPartClick(){
 	var numDoc = $('#search-docnum'.concat(minus, num)).val();
 
 	if (tipo === undefined || numDoc === "") {
-		showErrorMessage('Debe completar los datos para poder realizar la busqueda.');
+		showErrorMessage('Debe completar los datos para poder realizar la búsqueda.');
+		return;
 	}
 
 	var busqueda = {
@@ -29,15 +30,14 @@ function buscarPartClick(){
             dataType: 'text',
             data: busqueda,
             success: function(data) {
-            		try{
-                   		JSON.parse(data);
-                   		var pre = JSON.parse(data);
-                   		//console.log(pre);
-                   		colocarDatosParticipante(pre, minus.concat(num));
-                    } catch(err) {
-											colocarDocID(busqueda, minus.concat(num));
-                    }
-
+        		try{
+               		JSON.parse(data);
+               		var pre = JSON.parse(data);
+               		//console.log(pre);
+               		colocarDatosParticipante(pre, minus.concat(num));
+                } catch(err) {
+					colocarDocID(busqueda, minus.concat(num));
+                }
             }
         });
     });
@@ -95,7 +95,7 @@ function validarParticipante(inputs, numeroParticipante){
 
 		if (name !== undefined) {
 			if (value === "" || value === undefined || value === null) {
-				showErrorMessage('El participante '.concat(numeroParticipante + 1, ' requiere ', name, '.'));
+				showErrorMessage(elem.data('errmsg').concat(numeroParticipante + 1, '.'));
 				return false;
 			}
 			else if (type == 'radio' && elem.is(':checked')) {
@@ -105,7 +105,7 @@ function validarParticipante(inputs, numeroParticipante){
 	}
 
 	if (isRadioSelected === false) {
-		showErrorMessage('El participante '.concat(numeroParticipante + 1, ' requiere su tipo de documento.'));
+		showErrorMessage('Ingrese el tipo de documento para el participante '.concat(numeroParticipante + 1, '.'));
 		return false;
 	}
 

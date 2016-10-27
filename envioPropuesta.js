@@ -1,10 +1,10 @@
 var idPropuesta = 0;
 
-function validarPropuesta(propuesta){
+function validarPropuesta(propuesta, ids){
 	for (var prop in propuesta){
 		if( propuesta.hasOwnProperty( prop ) ) {
 			if (propuesta[prop] === null || propuesta[prop] === undefined || propuesta[prop] == '') {
-				showErrorMessage('Debe ingresar un(a) '.concat(prop, '.'), '#datos-notificaciones');
+				showErrorMessage($(ids[prop]).data('errmsg'), '#datos-notificaciones');
 				return false;
 			}
 		}
@@ -14,6 +14,14 @@ function validarPropuesta(propuesta){
 
 function enviarPropuesta(){
 	var button = $(this);
+
+	var propIds = {
+		modalidad: '#modalidades',
+		tematica: '#tematica',
+		nivelEducativo: '#nivel-educativo',
+		titulo: '#titulo'
+	}
+
 	var propuesta = {
 		modalidad: $('#modalidades').val(),
 		tematica: $('#tematica').val(),
@@ -26,7 +34,7 @@ function enviarPropuesta(){
 		propuesta['otra-tematica'] = otra;
 	}
 
-	var isValid = validarPropuesta(propuesta);
+	var isValid = validarPropuesta(propuesta, propIds);
 	propuesta['otra-tematica'] = '';
 
 	if (isValid) {

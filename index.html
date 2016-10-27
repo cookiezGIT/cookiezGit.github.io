@@ -24,7 +24,7 @@
             <h5>Paso 1 - Sobre la Propuesta</h5>
             <div class="row">
                 <div class="input-field col s12 m6">
-                    <select id="modalidades">
+                    <select id="modalidades" data-errmsg="Debe seleccionar una modalidad.">
                         <option value="" disabled selected>Elija la modalidad de su propuesta</option>
                     </select>
                     <label>Modalidad</label>
@@ -38,21 +38,21 @@
 
             <div class="row">
                 <div class="input-field col s12 m6" >
-                    <select id="tematica">
+                    <select id="tematica" data-errmsg="Debe seleccionar una línea temática.">
                         <option value="" disabled selected>Elija la línea temática de su propuesta</option>
                     </select>
                     <label>Línea temática</label>
                 </div>
 
                 <div class="input-field col s12 m6 hide" id="otra">
-                    <input id="otra-tematica" type="text" class="validate" length="100">
+                    <input id="otra-tematica" type="text" class="validate" length="100" data-errmsg="Debe ingresar una temática.">
                     <label for="paterno">Indicar la otra temática</label>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s12 m6" >
-                    <select id="nivel-educativo">
+                    <select id="nivel-educativo"  data-errmsg="Debe seleccionar un nivel educativo.">
                         <option value="" disabled selected>Elija el nivel educativo de su propuesta</option>
                     </select>
                     <label>Nivel educativo</label>
@@ -62,7 +62,7 @@
             <div class="row">
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">assignment</i>
-                    <input id="titulo" type="text" class="validate" length="100">
+                    <input id="titulo" type="text" class="validate" length="100" data-errmsg="Debe ingresar un título para su propuesta.">
                     <label for="titulo"> Título de la propuesta</label>
                 </div>
             </div>
@@ -86,7 +86,7 @@
         <div class="divider"></div>
         <div class="section">
             <h5>Paso 2 - Registrar participantes</h5>
-            <p>Requerimos saber cuántas personas han participado en su proyecto para poder registrar a cada una de ellas.</p>
+            <p>Por favor indique el número de personas que han participado en la elaboración de su propuesta.</p>
 
             <div class="row">
                 <div class="input-field col m6 s12">
@@ -138,15 +138,15 @@
                             <div class="row">
                                 <div class="input-field col l4 m12">
                                     <i class="material-icons prefix">account_circle</i>
-                                    <input id="nombre" type="text" class="validate" name="nombre">
+                                    <input id="nombre" type="text" class="validate" name="nombre" data-errmsg="Ingrese el nombre para el participante ">
                                     <label for="nombre">Nombre</label>
                                 </div>
                                 <div class="input-field col l4 m6 s12">
-                                    <input id="paterno" type="text" class="validate" name="apellido-paterno">
+                                    <input id="paterno" type="text" class="validate" name="apellido-paterno" data-errmsg="Ingrese el apellido paterno para el participante ">
                                     <label for="paterno">A. Paterno</label>
                                 </div>
                                 <div class="input-field col l4 m6 s12">
-                                    <input id="materno" type="text" class="validate" name="apellido-materno">
+                                    <input id="materno" type="text" class="validate" name="apellido-materno" data-errmsg="Ingrese el apellido materno para el participante ">
                                     <label for="materno">A. Materno</label>
                                 </div>
                             </div>
@@ -160,7 +160,7 @@
                                 </div>
 
                                 <div class="input-field col s5">
-                                    <input id="docnum" type="number" class="validate" name="numero-documento">
+                                    <input id="docnum" type="number" class="validate" name="numero-documento" data-errmsg="">
                                     <label for="docnum"># de documento</label>
                                 </div>
                             </div>
@@ -168,11 +168,11 @@
                             <div class="row">
                                 <div class="input-field col s7">
                                     <i class="material-icons prefix">business</i>
-                                    <input id="institucion" type="text" class="validate" name="institucion">
+                                    <input id="institucion" type="text" class="validate" name="institucion" data-errmsg="Ingrese la institución para el participante ">
                                     <label for="institucion">Institución</label>
                                 </div>
                                 <div class="input-field col s5">
-                                    <select name="pais" class="paises" id="pais">
+                                    <select name="pais" class="paises" id="pais" data-errmsg="Seleccione el país para el participante ">
                                         <option value="none" disabled selected>Elija su país</option>
                                         <!-- ListarPais(); -->
                                     </select>
@@ -183,12 +183,12 @@
                             <div class="row">
                                 <div class="input-field col s7">
                                     <i class="material-icons prefix">email</i>
-                                    <input id="email" type="email" class="validate" name="email">
+                                    <input id="email" type="email" class="validate" name="email" data-errmsg="Ingrese el email para el participante ">
                                     <label for="email" data-error="email no válido" data-success="válido">Email</label>
                                 </div>
                                 <div class="input-field col s5">
                                     <i class="material-icons prefix">phone</i>
-                                    <input id="telefono" type="number" class="validate" name="telefono">
+                                    <input id="telefono" type="number" class="validate" name="telefono" data-errmsg="Ingrese el teléfono para el participante ">
                                     <label for="telefono">Teléfono</label>
                                 </div>
                             </div>
@@ -198,7 +198,7 @@
                                     <h6>Esta persona es...</h6>
                                     <div class="col m6">
                                         <p>
-                                            <input type="checkbox" class="filled-in" id="tipo-participante" name="tipo-participante" value="2" />
+                                            <input type="checkbox" class="filled-in" id="tipo-participante" name="tipo-participante" value="2"/>
                                             <label for="tipo-participante">Expositor</label>
                                         </p>
                                     </div>
@@ -222,7 +222,7 @@
     <div id="paso3" class="hide">
         <div class="divider"></div>
         <h5>Paso 3 - Adjuntar archivos de la propuesta</h5>
-        <p>Cada modalidad tiene requerimientos y plantillas para las propuestas diferentes, por favor descargue y llene las plantillas aquí:</p>
+        <p>Cada modalidad tiene requerimientos y plantillas distintas por propuesta. Por favor descargue y llene las plantillas aquí:</p>
         <div id="plantillas">
 
         </div>
@@ -561,6 +561,7 @@
         <div class="divider"></div>
         <h5>Su propuesta ha sido enviada con éxito. En breve el Coordinador recibirá un correo de confirmación. </h5>
         <p>Relme31 agradece su interés y su participación</p>
+        <a href="javascript:window.close();">Cerrar ventana</a>
 </div>
 
 </body>
