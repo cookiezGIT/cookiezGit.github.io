@@ -117,6 +117,8 @@ function guardarParticipantes(){
 	var i = 0;
 	var id = 'form-participantes';
 	var partForm = $('#'.concat(id));
+	var button = $(this);
+	var allInputs = [];
 
 	do{
 		var inputs = partForm.find('input, select');
@@ -165,9 +167,7 @@ function guardarParticipantes(){
 					participante[name] = value;
 				}
 
-				elem.attr('disabled', true);
-				if (inputs.get(j).tagName == 'SELECT')
-					elem.material_select();
+				allInputs.push(elem);
 			}
 		}
 
@@ -175,23 +175,35 @@ function guardarParticipantes(){
 
 		participantes.push(participante);
 
-		jQuery(function($) {
-	        $.ajax({
-	            type: 'POST',
-	            url: 'WS/RegistrarParticipante.php',
-	            dataType: 'text',
-	            data: participante,
-	            success: function(data) {
-	            	//console.log(data);
-            	}
-        });
-
-		partForm = $('#'.concat(id, '-', i));
+    	partForm = $('#'.concat(id, '-', i));
 		i++;
-    });
 	}while(partForm.length > 0);
 
-	$(this).remove();
+	console.log(participantes);
+
+	enviarParticipantes(participantes, allInputs);
+}
+
+function disableInputs(inputs){
+	for (var i = 0; i < inputs.length; i++) {
+		inputs[i].attr('disabled', true);
+		if (inputs[i].get(0).tagName == 'SELECT')
+			inputs[i].material_select();
+	}
+}
+
+function onResults(results, allInputs){
+	console.log(results);
+	for (var prop in results){
+		if (results.hasOwnProperty(prop)) {
+			if (results[prop].RPTA == 0) {
+				showErrorMessage(results[prop].MENS);
+				return;
+			}				
+		}
+	}
+	disableInputs(allInputs);
+	$('#guardar-participantes').remove();
 	$('#paso3').removeClass('hide');
 	$("html, body").animate({ scrollTop: $(document).height() }, 1000);
 
@@ -199,7 +211,28 @@ function guardarParticipantes(){
 	select.attr('disabled', true);
 	select.material_select();
 
-	//console.log(participantes);
+}
+
+function enviarParticipantes(participantes, allInputs){
+	var ajaxArray = [];
+	var results = {};
+
+	for (var i = 0; i < participantes.length; i++) {
+		var async = $.ajax({
+            type: 'POST',
+            url: 'WS/RegistrarParticipante.php',
+            dataType: 'text',
+            data: participantes[i],
+            success: function(data) {
+            	results[i.toString()] = JSON.parse(data);
+        	}
+    	});
+		ajaxArray.push(async);
+	}
+
+	$.when.apply(undefined, ajaxArray).then(function(){
+		onResults(results, allInputs);
+	});
 }
 
 function mostrarBotonGuardarParticipantes(){
