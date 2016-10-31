@@ -31,9 +31,8 @@ function buscarPartClick(){
             data: busqueda,
             success: function(data) {
         		try{
-               		JSON.parse(data);
                		var pre = JSON.parse(data);
-               		//console.log(pre);
+               		console.log(pre);
                		colocarDatosParticipante(pre, minus.concat(num));
                 } catch(err) {
 					colocarDocID(busqueda, minus.concat(num));
@@ -49,6 +48,7 @@ function buscarPartClick(){
 
 function colocarDatosParticipante(participante, formSuffix){
 	if (participante !== undefined) {
+		$('#form-participantes'.concat(formSuffix)).data('id-participante', participante.ID_PARTICIPANTE);
 		$('#nombre'.concat(formSuffix)).val(participante.NO_NOMBRE);
 		$('#paterno'.concat(formSuffix)).val(participante.NO_APELLIDO_PATERNO);
 		$('#materno'.concat(formSuffix)).val(participante.NO_APELLIDO_MATERNO);
@@ -73,6 +73,7 @@ function colocarDatosParticipante(participante, formSuffix){
 }
 
 function colocarDocID(busqueda, formSuffix){
+	$('#form-participantes'.concat(formSuffix)).data('id-participante', 0);
 	var radioGroup = $('#form-participantes'.concat(formSuffix, ' ', 'input:radio[name="tipo-doc"]'));
 	$.each(radioGroup, function(i, val){
 		var radio = $(val);
@@ -172,6 +173,7 @@ function guardarParticipantes(){
 		}
 
 		participante['id-propuesta'] = idPropuesta;
+		participante['id-participante'] = partForm.data('id-participante');
 
 		participantes.push(participante);
 
@@ -197,7 +199,7 @@ function onResults(results, allInputs){
 	for (var prop in results){
 		if (results.hasOwnProperty(prop)) {
 			if (results[prop].RPTA == 0) {
-				showErrorMessage('Registro '.concat(prop, ': ', results[prop].MENS));
+				showErrorMessage('Registro '.concat(parseInt(prop) + 1, ': ', results[prop].MENS));
 				return;
 			}				
 		}

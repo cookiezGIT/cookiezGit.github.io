@@ -4,6 +4,7 @@ $file = fopen("configura.txt", "r");
 $Dir ="";
 while(!feof($file)) { $Dir = fgets($file);} fclose($file);
 
+$idParticipante = $_POST["id-participante"];
 $idPropuesta = $_POST["id-propuesta"];
 $tipoDoc = $_POST["tipo-doc"];
 $numDoc = $_POST["numero-documento"];
@@ -18,7 +19,7 @@ $tipoParticipante= $_POST["tipo-participante"];
 
 $servicio = $Dir;
 $parametros= array('ID_PROPUESTA_REGISTRO' => $idPropuesta,
-                   'ID_PARTICIPANTE' => "0",
+                   'ID_PARTICIPANTE' => $idParticipante,
                    'GRUPO_TIPO_PARTICIPANTE' => $tipoParticipante,
                    'ID_TIPO_DOCUMENTO' => $tipoDoc,
                    'ID_PAIS' => $pais,
