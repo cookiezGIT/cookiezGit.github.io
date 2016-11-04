@@ -21,7 +21,7 @@ function buscarPartClick(){
 		'tipo-doc': tipo,
 		'numero-documento': numDoc
 	};
-	console.log(busqueda);
+	//console.log(busqueda);
 
 	jQuery(function($) {
         $.ajax({
@@ -32,7 +32,7 @@ function buscarPartClick(){
             success: function(data) {
         		try{
                		var pre = JSON.parse(data);
-               		console.log(pre);
+               		//console.log(pre);
                		colocarDatosParticipante(pre, minus.concat(num));
                 } catch(err) {
 					colocarDocID(busqueda, minus.concat(num));
@@ -181,7 +181,7 @@ function guardarParticipantes(){
 		i++;
 	}while(partForm.length > 0);
 
-	console.log(participantes);
+	//console.log(participantes);
 
 	enviarParticipantes(participantes, allInputs);
 }
@@ -195,7 +195,7 @@ function disableInputs(inputs){
 }
 
 function onResults(results, allInputs){
-	console.log(results);
+	//console.log(results);
 	for (var prop in results){
 		if (results.hasOwnProperty(prop)) {
 			if (results[prop].RPTA == 0) {
