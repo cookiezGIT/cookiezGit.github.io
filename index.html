@@ -233,7 +233,7 @@
 	    				<input id="foto-lugar" type="text" class="validate">
 	          			<label for="foto-lugar">Lugar donde fue tomada</label>
 	    			</div>
-	    			<div class="input-field">
+	    			<div class="input-field" id="div-fecha-toma">
 	    				<input id="foto-fecha" type="date" class="datepicker">
 	          			<label for="foto-fecha">Fecha de la toma</label>
 	    			</div>
@@ -282,13 +282,13 @@
 			            <input class="file-path validate" type="text" placeholder="Fotografía">
 			        </div>
 			    </div>
-			    <p class="red-text">El tamaño máximo de archivo es de 5 MB. Los archivos deben ser imagenes.</p>
+			    <p class="red-text">El tamaño máximo de archivo es de 5 MB. El archivo debe ser una imagen.</p>
 			</div>
     	</div>
     	<div class="section">
             <div class="row">
                 <div class="col s12">
-                    <button class="waves-effect waves-light btn-large" type="submit" name="guardar" id="video-finalizar">
+                    <button class="waves-effect waves-light btn-large" type="submit" name="guardar" id="foto-finalizar">
                         <i class="material-icons left">send</i>
                         Finalizar y enviar
                     </button>
@@ -337,6 +337,7 @@
 			        <div class="input-field col s12">
 	    				<input id="video-link" type="text" class="validate">
 	          			<label for="video-link">Link del video</label>
+	          			<p class="red-text">El formato del video debe ser mov, avi o mp4, con una duración no mayor de tres minutos y no más de 50 MB.</p>
 	    			</div>
 			    </div>
 			</div>
@@ -388,6 +389,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
 <script>
+	'use strict';
+
     var cantParticipantes = 1;
     var aux = $('#form-participantes');
     var participanteForm = aux.clone();
@@ -419,7 +422,7 @@
                 addAttrSuffixToInput(i-1, participanteForm, 'select', 'id');
 
                 var num = parseFloat(i) + 1;
-                var h5 = participanteForm.find('h5').text("Coautor ".concat(num));
+                participanteForm.find('h5').text("Coautor ".concat(num));
 
                 participanteForm.find('.buscar-part').data('num', i-1);
                 participanteForm.find('.buscar-part').click(buscarPartClick);
@@ -565,30 +568,6 @@
         });
     }
 
-    //Lo dejo para reusar luego
-    function ListarModalidadDeprecated(){
-        jQuery(function($) {
-            $.ajax({
-                type: 'POST',
-                url: 'WS/ListarModalidad.php',
-                success: function(data) {
-                    try{
-                        JSON.parse(data);
-                    } catch(err) {
-                        alert('error en ws');
-                    }
-                    var pre = JSON.parse(data);
-                    console.log(pre);
-                    var sel = $('#modalidades');
-                    for(var i=0;i<pre.length;i++){
-                        sel.append('<p><input class="with-gap" name="group1" type="radio" id="p'+pre[i].ID_MODALIDAD+'" data-DUIS="'+pre[i].ID_MODALIDAD+'"/>\
-                                <label for="p'+pre[i].ID_MODALIDAD+'">'+pre[i].NO_MODALIDAD+'</label></p>');
-                    }
-                }
-            });
-        });
-    }
-
     function onChangeTematica(){
         if ($('#tematica').val() == 24){
             $('#otra').removeClass('hide');
@@ -675,8 +654,24 @@
 	    max: new Date()
   	};
 
-</script>
-<script>
+  	jQuery.extend( jQuery.fn.pickadate.defaults, {
+	    monthsFull: [ 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre' ],
+	    monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
+	    weekdaysFull: [ 'domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado' ],
+	    weekdaysShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
+	    today: 'hoy',
+	    clear: 'borrar',
+	    close: 'cerrar',
+	    firstDay: 1,
+	    format: 'dddd d !de mmmm !de yyyy',
+	    formatSubmit: 'yyyy/mm/dd'
+	});
+
+	jQuery.extend( jQuery.fn.pickatime.defaults, {
+	    clear: 'borrar'
+	});
+
+
     ListarModalidad();
     ListarLineaTematica();
     ListarNivelEducativo();
@@ -695,6 +690,8 @@
 <script type="text/javascript" src="guardarParticipantes.js"></script>
 <script type="text/javascript" src="envioPropuesta.js"></script>
 <script type="text/javascript" src="guardarArchivo.js"></script>
+<script type="text/javascript" src="guardarFotografia.js"></script>
+<script type="text/javascript" src="guardarVideo.js"></script>
 
 <div class="container hide" id="exito">
  <h3>Propuesta enviada</h3>

@@ -1,9 +1,11 @@
+'use strict';
+
 var idPropuesta = 0;
 
 function validarPropuesta(propuesta, ids){
 	for (var prop in propuesta){
 		if( propuesta.hasOwnProperty( prop ) ) {
-			if (propuesta[prop] === null || propuesta[prop] === undefined || propuesta[prop] == '') {
+			if (propuesta[prop] === null || propuesta[prop] === undefined || propuesta[prop] === '') {
 				showErrorMessage($(ids[prop]).data('errmsg'), '#datos-notificaciones');
 				return false;
 			}
