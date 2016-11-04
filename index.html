@@ -82,7 +82,7 @@
             </div>
         </div>
     </div>
-    <div id="paso2" class="hide">
+    <div id="paso2" class="">
         <div class="divider"></div>
         <div class="section">
             <h5>Paso 2 - Registrar participantes</h5>
@@ -219,7 +219,75 @@
         </div>
     </div>
 
-    <div id="paso3" class="hide">
+    <div id="paso2-fotografia">
+    	<div class="divider"></div>
+    	<h5>Paso 3 - Sobre la fotografía</h5>
+    	<div class="section">
+    		<div class="row">
+    			<div class="col m6 s12">
+    				<h6>Seleccione la categoría de la fotografía</h6>
+    				<p>
+						<input type="checkbox" id="soy-profesor" />
+						<label for="soy-profesor">Soy profesor de matemática.</label>
+				    </p>
+				    <p>
+						<input type="checkbox" id="matematica-contexto" />
+						<label for="matematica-contexto">Matemática en el contexto.</label>
+				    </p>
+				    <p>
+						<input type="checkbox" id="haciendo-matematica" />
+						<label for="haciendo-matematica">Haciendo matemática.</label>
+				    </p>
+				    <p>
+						<input type="checkbox" id="memoria-relme" />
+						<label for="memoria-relme">Memoria gráfica de la Relme.</label>
+				    </p>
+				    <p>
+						<input type="checkbox" id="selfie" />
+						<label for="selfie">Autorretrato (selfie).</label>
+				    </p>
+    			</div>
+    			<div class="input-field col m6 s12">
+    				<input id="foto-titulo" type="text" class="validate">
+          			<label for="foto-titulo">Título</label>
+    			</div>
+    			<div class="input-field col m6 s12">
+    				<input id="foto-lugar" type="text" class="validate">
+          			<label for="foto-lugar">Lugar donde fue tomada</label>
+    			</div>
+    			<div class="input-field col m6 s12">
+    				<input id="foto-fecha" type="date" class="datepicker">
+          			<label for="foto-fecha">Fecha de la toma</label>
+    			</div>
+    		</div>
+    		<div class="row">
+    			<div class="input-field col s12">
+    				<textarea id="textarea1" class="materialize-textarea" length="250"></textarea>
+          			<label for="textarea1">Descripción</label>          			
+    			</div>
+    			<div class="col s12">
+    				<p><i class="tiny material-icons">info_outline</i> Explique por qué la fotografía se inscribió en la categoría señalada.</p>
+    			</div>
+    		</div>
+    	</div>
+    	<div class="section">
+    		<div class="row">
+    			<h5>Envío online</h5>
+			    <div class="file-field input-field">
+			        <div class="btn">
+			            <span>Adjuntar</span>
+			            <input type="file" accept="image/jpeg, image/png" name="foto-adjunto" id="foto-adjunto">
+			        </div>
+			        <div class="file-path-wrapper">
+			            <input class="file-path validate" type="text" placeholder="Fotografía">
+			        </div>
+			    </div>
+			    <p class="red-text">El tamaño máximo de archivo es de 5 MB. Los archivos deben ser imagenes.</p>
+			</div>
+    	</div>
+    </div>
+
+    <div id="paso3" class="">
         <div class="divider"></div>
         <h5>Paso 3 - Adjuntar archivos de la propuesta</h5>
         <p>Cada modalidad tiene requerimientos y plantillas distintas por propuesta. Por favor descargue y llene las plantillas aquí:</p>
@@ -465,14 +533,12 @@
     }
 
     function onChangeModalidades(){
-        if ($('#modalidades').val() == 16 || $('#modalidades').val() == 17){
-            $('#enviar-datos-propuesta').attr('disabled', true);
-            $('#foto-video-notif').removeClass('hide');
+        if ($('#modalidades').val() == 16){
+        	$("#participantes option:not(:first)").attr('disabled', true); 
+        }else{
+			$("#participantes option:not(:first)").attr('disabled', false);
         }
-        else{
-            $('#enviar-datos-propuesta').attr('disabled', false);
-            $('#foto-video-notif').addClass('hide');
-        }
+        $('#participantes').material_select();
     }
 
     function showErrorMessage(msg, id){
@@ -537,6 +603,12 @@
         padre.append('<p>'+icon+'(DOC) <a href="'+b+'">'+texto.b+'</a></p>');
     }
 
+    var datePickerInitialization = {
+	    selectMonths: true,
+	    selectYears: 20,
+	    max: new Date()
+  	};
+
 </script>
 <script>
     ListarModalidad();
@@ -551,6 +623,7 @@
     $('#participantes').change(onChangeParticipantes);
     $('#modalidades').change(onChangeModalidades);
     $('#participantes').material_select();
+    $('.datepicker').pickadate(datePickerInitialization);
 </script>
 
 <script type="text/javascript" src="guardarParticipantes.js"></script>
