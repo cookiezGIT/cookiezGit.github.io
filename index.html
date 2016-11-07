@@ -16,7 +16,16 @@
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css"> -->
 <link rel="stylesheet" href="css/materialize.css">
 
-<div class="container" id="contenedor">
+<div class="container hide" id="ie8" style="margin-top:10%;">
+    <h2>Lo sentimos :(</h2>
+    <div class="divider"></div>
+    <h3>Este formulario no funciona correctamente con Internet Explorer. </h3>
+    <h5>Relme31 le recomienda usar <a href="https://www.mozilla.org/es-MX/firefox/new/">Mozilla Firefox</a> o <a href="https://www.google.com/chrome/browser/desktop/index.html">Google Chrome</a>.</h5>
+    <div class="row" style="margin-top:3%">
+        <a href="http://relme31.ulima.edu.pe" class="col s2 offset-s5"><h4>Volver</h4>4</a>
+    </div>
+</div>
+<div class="container hide" id="contenedor">
     <h3>Registro de Propuesta</h3>
     <div id="paso1">
         <div class="divider"></div>
@@ -225,15 +234,15 @@
     	<div class="section">
     		<div class="row">
     		    <div class="col m6 s12">
-	    			<div class="input-field">
+	    			<div class="input-field col s12">
 	    				<input id="foto-titulo" type="text" class="validate">
 	          			<label for="foto-titulo">Título</label>
 	    			</div>
-	    			<div class="input-field">
+	    			<div class="input-field col s12">
 	    				<input id="foto-lugar" type="text" class="validate">
 	          			<label for="foto-lugar">Lugar donde fue tomada</label>
 	    			</div>
-	    			<div class="input-field" id="div-fecha-toma">
+	    			<div class="input-field col s12" id="div-fecha-toma">
 	    				<input id="foto-fecha" type="date" class="datepicker">
 	          			<label for="foto-fecha">Fecha de la toma</label>
 	    			</div>
@@ -390,6 +399,17 @@
 
 <script>
 	'use strict';
+
+    function isIE () {
+        var myNav = navigator.userAgent.toLowerCase();
+        return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
+    }
+
+    if (isIE () && isIE () < 9) {
+        document.getElementById('ie8').className = "container";
+    } else {
+        document.getElementById('contenedor').className = "container";
+    }
 
     var cantParticipantes = 1;
     var aux = $('#form-participantes');
@@ -661,16 +681,11 @@
 	    weekdaysShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
 	    today: 'hoy',
 	    clear: 'borrar',
-	    close: 'cerrar',
+	    close: 'aceptar',
 	    firstDay: 1,
 	    format: 'dddd d !de mmmm !de yyyy',
 	    formatSubmit: 'yyyy/mm/dd'
 	});
-
-	jQuery.extend( jQuery.fn.pickatime.defaults, {
-	    clear: 'borrar'
-	});
-
 
     ListarModalidad();
     ListarLineaTematica();
@@ -693,11 +708,15 @@
 <script type="text/javascript" src="guardarFotografia.js"></script>
 <script type="text/javascript" src="guardarVideo.js"></script>
 
-<div class="container hide" id="exito">
- <h3>Propuesta enviada</h3>
-        <div class="divider"></div>
-        <h5>Su propuesta ha sido enviada con éxito. En breve el Coordinador recibirá un correo de confirmación. </h5>
-        <p>Relme31 agradece su interés y su participación</p>
+<div class="container hide" id="exito" style="margin-top:10%;">
+    <h2>Propuesta enviada</h2>
+    <div class="divider"></div>
+    <h3>Su propuesta ha sido enviada con éxito.</h3>
+    <h4>Relme31 agradece su interés y su participación.</h4>
+    <div class="row" style="margin-top:8%">
+        <a href="http://relme31.ulima.edu.pe" class="col s2 offset-s5">
+        <button class="waves-effect waves-light btn-large" style="margin:0 auto">Finalizar</button></a>
+    </div>
 </div>
 
 </body>
