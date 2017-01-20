@@ -189,21 +189,21 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row valign-wrapper">
                                 <div class="input-field col s7">
                                     <i class="material-icons prefix">email</i>
                                     <input id="email" type="email" class="validate" name="email" data-errmsg="Ingrese el email para el participante ">
                                     <label for="email" data-error="email no válido" data-success="válido">Email</label>
                                 </div>
-                                <div class="input-field col s5">
-                                    <i class="material-icons prefix">phone</i>
-                                    <input id="telefono" type="number" class="validate" name="telefono" data-errmsg="Ingrese el teléfono para el participante ">
-                                    <label for="telefono">Teléfono</label>
-                                </div>  
+                                <div class="col s5 valign">
+                                    <button class="waves-effect waves-light btn" type="button" name="confirmar" id="confirmar-correo">
+                                        Confirmar
+                                    </button>
+                                </div>
                             </div>
 
                             <div class="row">
-                                <div class="col s8 div-tipo-participante">
+                                <div class="col s6 div-tipo-participante">
                                     <h6>Esta persona es...</h6>
                                     <div class="col m6">
                                         <p>
@@ -212,6 +212,11 @@
                                         </p>
                                     </div>
                                 </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">phone</i>
+                                    <input id="telefono" type="number" class="validate" name="telefono" data-errmsg="Ingrese el teléfono para el participante ">
+                                    <label for="telefono">Teléfono</label>
+                                </div>  
                             </div>
                         </div>
                     </form>
