@@ -59,6 +59,8 @@ function colocarDatosParticipante(participante, formSuffix){
 		$('#email'.concat(formSuffix)).val(participante.NO_EMAIL);
 		$('#telefono'.concat(formSuffix)).val(participante.NU_TELEFONO);
 
+		$('#row-confirmar-correo'.concat(formSuffix)).remove();
+
 		var select = $('#pais'.concat(formSuffix));
 		select.val(participante.ID_PAIS);
 		select.material_select();
@@ -254,6 +256,27 @@ function mostrarBotonGuardarParticipantes(){
     }
 }
 
+function enviarConfirmacion(){
+	var button = $(this);
+	var num = button.data('num');
+	var minus = "";
+	if (num !== "")
+		minus = "-"
+
+	if (validateEmail($('#email'.concat(minus, num)).val())) {
+		$('#div-codigo-confirmacion'.concat(minus, num)).removeClass('hide');
+		button.addClass('hide');
+	}
+	else{
+		showErrorMessage('Debe ingresar un email válido.');
+	}
+}
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
 $('#search-docnum').keydown(function(e) {
     if(e.which == 13) {
         $('#form-participantes').find('.buscar-part').click();
@@ -263,3 +286,4 @@ $('#search-docnum').keydown(function(e) {
 $('#guardar-participantes').click(guardarParticipantes);
 
 $('.form-part').find('.buscar-part').click(buscarPartClick);
+$('.form-part').find('.confirmar-correo').click(enviarConfirmacion);

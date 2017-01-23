@@ -195,13 +195,25 @@
                                     <input id="email" type="email" class="validate" name="email" data-errmsg="Ingrese el email para el participante ">
                                     <label for="email" data-error="email no válido" data-success="válido">Email</label>
                                 </div>
-                                <div class="col s5 valign">
-                                    <button class="waves-effect waves-light btn" type="button" name="confirmar" id="confirmar-correo">
-                                        Confirmar
-                                    </button>
-                                </div>
+                                <div class="input-field col s5">
+                                    <i class="material-icons prefix">phone</i>
+                                    <input id="telefono" type="number" class="validate" name="telefono" data-errmsg="Ingrese el teléfono para el participante ">
+                                    <label for="telefono">Teléfono</label>
+                                </div>                                 
                             </div>
 
+                            <div class="row" id="row-confirmar-correo">
+                                <div class="col s12 valign">
+                                    <button class="waves-effect waves-light btn confirmar-correo" type="button" name="confirmar-correo" data-num="">
+                                        Confirmar correo<i class="material-icons right">info_outline</i>
+                                    </button>
+                                    <div class="input-field hide" id="div-codigo-confirmacion">
+                                        <i class="material-icons prefix">info_outline</i>
+                                        <input id="codigo-confirmacion" type="text" class="validate" name="codigo-confirmacion" data-errmsg="Ingrese el codigo de confirmación para el participante ">
+                                        <label for="codigo-confirmacion" data-error="Código de confirmación no válido" data-success="válido">Ingrese el código de confirmación</label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col s6 div-tipo-participante">
                                     <h6>Esta persona es...</h6>
@@ -212,11 +224,6 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix">phone</i>
-                                    <input id="telefono" type="number" class="validate" name="telefono" data-errmsg="Ingrese el teléfono para el participante ">
-                                    <label for="telefono">Teléfono</label>
-                                </div>  
                             </div>
                         </div>
                     </form>
@@ -451,6 +458,11 @@
 
                 participanteForm.find('.buscar-part').data('num', i-1);
                 participanteForm.find('.buscar-part').click(buscarPartClick);
+
+                participanteForm.find('.confirmar-correo').data('num', i-1);
+                participanteForm.find('#div-codigo-confirmacion').attr('id', 'div-codigo-confirmacion'.concat('-', i-1));
+                participanteForm.find('#row-confirmar-correo').attr('id', 'row-confirmar-correo'.concat('-', i-1));
+                participanteForm.find('.confirmar-correo').click(enviarConfirmacion);
 
                 expandParticipantes.append(participanteForm);
                 ListarPais(participanteForm);
