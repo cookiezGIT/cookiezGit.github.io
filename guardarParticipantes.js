@@ -7,7 +7,7 @@ function buscarPartClick(){
 	var num = button.data('num');
 	var minus = "";
 	if (num !== "")
-		minus = "-"
+		minus = "-";
 
 	var particForm = $('#form-participantes'.concat(minus, num));
 	var tipo = particForm.find('input[name="search-group1'.concat(minus, num, '"]:checked')).val();
@@ -59,7 +59,8 @@ function colocarDatosParticipante(participante, formSuffix){
 		$('#email'.concat(formSuffix)).val(participante.NO_EMAIL);
 		$('#telefono'.concat(formSuffix)).val(participante.NU_TELEFONO);
 
-		$('#row-confirmar-correo'.concat(formSuffix)).remove();
+		$('#confirmar-email-text'.concat(formSuffix)).remove();
+		$('#row-confirmar-correo').remove();
 
 		var select = $('#pais'.concat(formSuffix));
 		select.val(participante.ID_PAIS);
@@ -117,6 +118,23 @@ function validarParticipante(inputs, numeroParticipante){
 	return true;
 }
 
+function validarTextCorreos(form, numeroParticipante){
+	var email = form.find('[id^=email]').val();
+	var confirmEmail = form.find('[id^=confirm-email]').val();
+
+	if (!validateEmail(email)){
+		showErrorMessage('Debe ingresar un correo válido para el participante '.concat(numeroParticipante + 1, '.'));
+		return false;
+	}
+	
+	if (confirmEmail && email !== confirmEmail){
+		showErrorMessage('Los correos ingresados deben coincidir para el participante '.concat(numeroParticipante + 1, '.'));
+		return false;
+	}
+
+	return true;
+}
+
 function guardarParticipantes(){
 	participantes = [];
 	var i = 0;
@@ -128,7 +146,7 @@ function guardarParticipantes(){
 	do{
 		var inputs = partForm.find('input, select');
 
-		if (!validarParticipante(inputs, i))
+		if (!validarParticipante(inputs, i) || !validarTextCorreos(partForm, i))
 			return;
 
 		partForm = $('#'.concat(id, '-', i));
@@ -257,17 +275,39 @@ function mostrarBotonGuardarParticipantes(){
 }
 
 function enviarConfirmacion(){
-	var button = $(this);
-	var num = button.data('num');
-	var minus = "";
-	if (num !== "")
-		minus = "-"
+	var button = $('#but-confirmar-correo');
+	button.prop('disabled', true);
+	var email = $('#email').val();
 
-	if (validateEmail($('#email'.concat(minus, num)).val())) {
-		$('#div-codigo-confirmacion'.concat(minus, num)).removeClass('hide');
-		button.addClass('hide');
+	if (validateEmail(email)) {
+		$.ajax({
+            type: 'POST',
+            url: 'WS/GeneraTokenMail.php',
+            dataType: 'text',
+            data: {
+        		email: email,
+        		app: aplicacion.ID_APLICACION
+        	},
+            success: function(data) {
+                try{
+                    var response = JSON.parse(data);
+                    console.log(response);
+
+                    $('#div-codigo-confirmacion').removeClass('hide');
+                    var inputCodigo = $('#codigo-confirmacion');
+                    inputCodigo.data('Rpta', response.Rpta);
+                    inputCodigo.val(response.Mensaje);
+                    Materialize.updateTextFields();
+
+                    button.addClass('hide');
+                } catch(err) {
+                    console.log('error en ws');
+                }
+            }
+        });
 	}
 	else{
+		button.prop('disabled', false);
 		showErrorMessage('Debe ingresar un email válido.');
 	}
 }
@@ -286,4 +326,4 @@ $('#search-docnum').keydown(function(e) {
 $('#guardar-participantes').click(guardarParticipantes);
 
 $('.form-part').find('.buscar-part').click(buscarPartClick);
-$('.form-part').find('.confirmar-correo').click(enviarConfirmacion);
+$('#but-confirmar-correo').click(enviarConfirmacion);

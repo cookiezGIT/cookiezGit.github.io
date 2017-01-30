@@ -202,9 +202,17 @@
                                 </div>                                 
                             </div>
 
+                            <div class="row" id="confirmar-email-text">
+                                <div class="input-field col s7">
+                                    <i class="material-icons prefix">email</i>
+                                    <input id="confirm-email" type="email" class="validate" name="confirm-email" data-errmsg="Ingrese el email de confirmación para el participante ">
+                                    <label for="confirm-email" data-error="email no válido" data-success="válido">Confirmar email</label>
+                                </div>
+                            </div>
+
                             <div class="row" id="row-confirmar-correo">
                                 <div class="col s12 valign">
-                                    <button class="waves-effect waves-light btn confirmar-correo" type="button" name="confirmar-correo" data-num="">
+                                    <button class="waves-effect waves-light btn" id="but-confirmar-correo" type="button" name="confirmar-correo" data-num="">
                                         Confirmar correo<i class="material-icons right">info_outline</i>
                                     </button>
                                     <div class="input-field hide" id="div-codigo-confirmacion">
@@ -412,15 +420,18 @@
 <script>
 	'use strict';
 
+    var aplicacion = {};
+
     function consultarAplicacion(callback){
         $.ajax({
             type: 'POST',
             url: 'WS/ConsultaAplicacion.php',
             success: function(data) {
                 try{
-                    var aplicacion = JSON.parse(data);
-                    callback(aplicacion);
-                } catch(err) {
+                    var app = JSON.parse(data);
+                    aplicacion = app;
+                    callback(app);
+                } catch(err) {              
                     console.log('error en ws');
                 }            
             }
@@ -441,6 +452,8 @@
     var cantParticipantes = 1;
     var aux = $('#form-participantes');
     var participanteForm = aux.clone();
+    aux.find('#confirmar-email-text').remove();
+    participanteForm.find('#row-confirmar-correo').remove();
     aux.find('h5').text('Coordinador');
 
     function addAttrSuffixToInput(suffix, form, element, attr){
@@ -469,15 +482,13 @@
                 addAttrSuffixToInput(i-1, participanteForm, 'select', 'id');
 
                 var num = parseFloat(i) + 1;
-                participanteForm.find('h5').text("Coautor ".concat(num));
+                participanteForm.find('h5').text('Coautor '.concat(num));
 
                 participanteForm.find('.buscar-part').data('num', i-1);
                 participanteForm.find('.buscar-part').click(buscarPartClick);
 
-                participanteForm.find('.confirmar-correo').data('num', i-1);
-                participanteForm.find('#div-codigo-confirmacion').attr('id', 'div-codigo-confirmacion'.concat('-', i-1));
-                participanteForm.find('#row-confirmar-correo').attr('id', 'row-confirmar-correo'.concat('-', i-1));
-                participanteForm.find('.confirmar-correo').click(enviarConfirmacion);
+                var confirmEmailTextDiv = participanteForm.find('#confirmar-email-text');
+                confirmEmailTextDiv.attr('id', confirmEmailTextDiv.attr('id').concat('-', i-1));
 
                 expandParticipantes.append(participanteForm);
                 ListarPais(participanteForm);
