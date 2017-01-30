@@ -6,7 +6,7 @@ while(!feof($file)) { $Dir = fgets($file);} fclose($file);
 
 
 $servicio = $Dir; 
-$parametros= [];
+$parametros= array("Id_Apliacacion" => $_POST["idApp"]);
 $client = new SoapClient($servicio, $parametros);
 $result = $client->ListarLineaTematica($parametros);
 

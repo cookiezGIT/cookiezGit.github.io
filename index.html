@@ -412,6 +412,21 @@
 <script>
 	'use strict';
 
+    function consultarAplicacion(callback){
+        $.ajax({
+            type: 'POST',
+            url: 'WS/ConsultaAplicacion.php',
+            success: function(data) {
+                try{
+                    var aplicacion = JSON.parse(data);
+                    callback(aplicacion);
+                } catch(err) {
+                    console.log('error en ws');
+                }            
+            }
+        });
+    }    
+
     function isIE () {
         var myNav = navigator.userAgent.toLowerCase();
         return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
@@ -538,11 +553,15 @@
         });
     }
 
-    function ListarLineaTematica(){
+    function ListarLineaTematica(idApp){
         jQuery(function($) {
             $.ajax({
                 type: 'POST',
                 url: 'WS/ListarLineaTematica.php',
+                dataType: 'text',
+                data: {
+                    idApp: idApp
+                },
                 success: function(data) {
                     try{
                         JSON.parse(data);
@@ -560,11 +579,15 @@
         });
     }
 
-    function ListarNivelEducativo(){
+    function ListarNivelEducativo(idApp){
         jQuery(function($) {
             $.ajax({
                 type: 'POST',
                 url: 'WS/ListarNivelEducativo.php',
+                dataType: 'text',
+                data: {
+                    idApp: idApp
+                },
                 success: function(data) {
                     try{
                         JSON.parse(data);
@@ -582,11 +605,15 @@
         });
     }
 
-    function ListarModalidad(){
+    function ListarModalidad(idApp){
         jQuery(function($) {
             $.ajax({
                 type: 'POST',
                 url: 'WS/ListarModalidad.php',
+                dataType: 'text',
+                data: {
+                    idApp: idApp
+                },
                 success: function(data) {
                     try{
                         JSON.parse(data);
@@ -704,9 +731,11 @@
 	    formatSubmit: 'yyyy/mm/dd'
 	});
 
-    ListarModalidad();
-    ListarLineaTematica();
-    ListarNivelEducativo();
+    consultarAplicacion(function(aplicacion){
+        ListarModalidad(aplicacion.ID_APLICACION);
+        ListarLineaTematica(aplicacion.ID_APLICACION);
+        ListarNivelEducativo(aplicacion.ID_APLICACION);
+    });
 
     var partForm = $('#form-participantes');
     ListarTipoDocumento(partForm);
